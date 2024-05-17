@@ -3,18 +3,126 @@
   "info": {
     "title": "HotelBookingAPI",
     "description": "API for managing hotel bookings and room availability",
-    "version": "1.0.0"
+    "version": "v1"
   },
   "servers": [
     {
-      "url": "/hotelBooking"
+      "url": "/api/"
     }
   ],
   "paths": {
-    "/booking": {
+    "/v1/rooms": {
+      "get": {
+        "summary": "Returns all rooms",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved all rooms",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "roomid": {
+                        "type": "integer"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Rooms not found"
+          }
+        }
+      }
+    },
+    "/v1/rooms/{id}": {
+      "get": {
+        "summary": "Returns a room by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the room to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the room",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "roomid": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Room not found"
+          }
+        }
+      }
+    },
+    "/v1/rooms/{id}/availability": {
+      "get": {
+        "summary": "Checks room availability by id and filter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the room to check availability"
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter to check room availability in JSON format"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Room is available"
+          },
+          "404": {
+            "description": "Room is not available"
+          }
+        }
+      }
+    },
+    "/v1/bookings": {
       "post": {
-        "summary": "Create a new booking",
-        "description": "Creates a new booking with the provided details.\n",
+        "summary": "Creates a new booking",
         "requestBody": {
           "required": true,
           "content": {
@@ -44,91 +152,97 @@
                   "roomSelection": {
                     "type": "string"
                   }
-                },
-                "required": [
-                  "name",
-                  "surname",
-                  "email",
-                  "emailConfirmed",
-                  "breakfast",
-                  "startDate",
-                  "duration",
-                  "roomSelection"
-                ]
+                }
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Booking created successfully"
+            "description": "Booking successfully created"
           },
-          "400": {
-            "description": "Invalid request parameters or missing required parameters"
+          "404": {
+            "description": "Booking creation failed"
           }
         }
       }
     },
-    "/checkRoomAvailability": {
-      "get": {
-        "summary": "Check room availability",
-        "description": "Checks the availability of a room for the specified duration.\n",
+    "/v1/bookings/{id}": {
+      "put": {
+        "summary": "Updates a booking",
         "parameters": [
           {
-            "name": "roomNumber",
-            "in": "query",
-            "description": "Room number to check availability for",
+            "in": "path",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "integer"
-            }
-          },
-          {
-            "name": "startDate",
-            "in": "query",
-            "description": "Start date of the booking",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date"
-            }
-          },
-          {
-            "name": "duration",
-            "in": "query",
-            "description": "Duration of the booking in days",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            },
+            "description": "ID of the booking to update"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Room availability checked successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "available": {
-                      "type": "boolean"
-                    }
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "surname": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "breakfast": {
+                    "type": "boolean"
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "duration": {
+                    "type": "integer"
+                  },
+                  "roomSelection": {
+                    "type": "string"
                   }
                 }
               }
             }
           }
-        }
-      }
-    },
-    "/getAllRooms": {
-      "get": {
-        "summary": "Get all rooms",
-        "description": "Retrieves an overview of all available rooms.\n",
+        },
         "responses": {
           "200": {
-            "description": "Overview of all rooms retrieved successfully"
+            "description": "Booking successfully updated"
+          },
+          "404": {
+            "description": "Booking update failed"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a booking",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the booking to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Booking successfully deleted"
+          },
+          "404": {
+            "description": "Booking deletion failed"
           }
         }
       }
