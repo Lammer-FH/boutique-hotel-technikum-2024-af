@@ -31,7 +31,7 @@ paths:
 
   /v1/rooms/{id}:
     get:
-      summary: Returns a room by id
+      summary: Returns a room by id or checks its availability
       parameters:
         - in: path
           name: id
@@ -39,9 +39,26 @@ paths:
           schema:
             type: integer
           description: ID of the room to retrieve
+        - in: query
+          name: filter
+          required: false
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                roomId:
+                  type: integer
+                startDate:
+                  type: string
+                  format: date
+                duration:
+                  type: integer
+          description: Optional filter to check room availability
+          example: '[{"roomId":123, "startDate":"2024-01-01", "duration":5}]'
       responses:
         '200':
-          description: Successfully retrieved the room
+          description: Successfully retrieved the room or the room is available
           content:
             application/json:
               schema:
@@ -54,29 +71,7 @@ paths:
                   description:
                     type: string
         '404':
-          description: Room not found
-
-  /v1/rooms/{id}/availability:
-    get:
-      summary: Checks room availability by id and filter
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-          description: ID of the room to check availability
-        - in: query
-          name: filter
-          required: true
-          schema:
-            type: string
-          description: Filter to check room availability in JSON format
-      responses:
-        '200':
-          description: Room is available
-        '404':
-          description: Room is not available
+          description: Room not found or not available
 
   /v1/bookings:
     post:
@@ -104,8 +99,15 @@ paths:
                 roomSelection:
                   type: string
       responses:
-        '200':
+        '201':
           description: Booking successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bookingId:
+                    type: integer
         '404':
           description: Booking creation failed
 
