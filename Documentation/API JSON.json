@@ -3,7 +3,7 @@
   "info": {
     "title": "HotelBookingAPI",
     "description": "API for managing hotel bookings and room availability",
-    "version": "v1"
+    "version": "1.0.0"
   },
   "servers": [
     {
