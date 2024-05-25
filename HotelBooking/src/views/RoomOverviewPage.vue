@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonIcon, IonButton } from '@ionic/vue';
-import { wifiOutline, snowOutline, wineOutline, checkmarkCircleOutline } from 'ionicons/icons';
+import { wifiOutline, snowOutline, wineOutline, volumeMuteOutline, tvOutline, checkmarkCircleOutline } from 'ionicons/icons';
 import axios from 'axios';
 
 export default {
@@ -73,7 +73,7 @@ export default {
                     id: 0,
                     title: 'Default Room',
                     description: 'This is a default room description. This room is provided as an example in case the API call fails or returns no data.',
-                    extras: ['Free WiFi', 'Air Conditioning', 'Mini Bar']
+                    extras: ['Free WiFi', 'Noise Protection', 'Tv']
                 }
             ];
         },
@@ -88,6 +88,10 @@ export default {
                     return snowOutline;
                 case 'mini bar':
                     return wineOutline;
+                case 'noise protection':
+                    return volumeMuteOutline;
+                case 'tv':
+                    return tvOutline;
                 default:
                     return checkmarkCircleOutline;
             }
