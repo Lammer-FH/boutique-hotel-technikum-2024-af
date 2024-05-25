@@ -1,11 +1,29 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
+import Welcomepage from '../views/WelcomePage.vue'
+import AboutPage from '../views/AboutPage.vue'
+import ImprintPage from '../views/ImprintPage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/welcome'
   },
+  {
+    path: '/welcome',
+    name: 'Welcome',
+    component: Welcomepage
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: AboutPage
+  },
+  {
+    path: '/imprint',
+    name: 'Imprint',
+    component: ImprintPage
+  }
 ]
 
 const router = createRouter({
