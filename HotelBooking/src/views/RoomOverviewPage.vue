@@ -5,7 +5,6 @@
                 <ion-title slot="end">Room Overview</ion-title>
             </IonToolbar>
         </IonHeader>
-
         <IonContent class="ion-padding">
             <h2>Our Rooms</h2>
             <ion-list>
@@ -13,8 +12,11 @@
                     <ion-label>
                         <h3>{{ room.title }}</h3>
                         <p>{{ room.description }}</p>
-                        <ul v-if="room.extras && room.extras.length">
-                            <li v-for="extra in room.extras" :key="extra">{{ extra }}</li>
+                        <ul class="extras-list">
+                            <li v-for="extra in room.extras" :key="extra" class="extra-item">
+                                <ion-icon :icon="getIcon(extra)"></ion-icon>
+                                {{ extra }}
+                            </li>
                         </ul>
                     </ion-label>
                 </ion-item>
@@ -25,7 +27,8 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonIcon, IonButton } from '@ionic/vue';
+import { wifiOutline, snowOutline, wineOutline, checkmarkCircleOutline } from 'ionicons/icons';
 import axios from 'axios';
 
 export default {
@@ -38,7 +41,9 @@ export default {
         IonContent,
         IonList,
         IonItem,
-        IonLabel
+        IonLabel,
+        IonButton,
+        IonIcon
     },
     data() {
         return {
@@ -74,6 +79,18 @@ export default {
         },
         navigateToWelcome() {
             this.$router.push('/');
+        },
+        getIcon(extra: string) {
+            switch (extra.toLowerCase()) {
+                case 'free wifi':
+                    return wifiOutline;
+                case 'air conditioning':
+                    return snowOutline;
+                case 'mini bar':
+                    return wineOutline;
+                default:
+                    return checkmarkCircleOutline;
+            }
         }
     }
 };
@@ -85,5 +102,19 @@ export default {
     bottom: 16px;
     right: 16px;
     z-index: 100;
+}
+
+.extras-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.extra-item {
+    display: flex;
+    align-items: center;
+}
+
+.extra-item ion-icon {
+    margin-right: 8px;
 }
 </style>
