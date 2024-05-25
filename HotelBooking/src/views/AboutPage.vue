@@ -6,7 +6,7 @@
             </IonToolbar>
         </IonHeader>
         <IonContent class="ion-padding">
-            <h1>Welcome to Our Hotel</h1>
+            <h2>Welcome to Our Hotel</h2>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur ligula in orci suscipit,
                 eget lobortis nunc laoreet. Nullam et libero ac justo posuere fringilla at vel dui. Sed rutrum magna et

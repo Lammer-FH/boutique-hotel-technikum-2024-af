@@ -6,7 +6,7 @@
             </IonToolbar>
         </IonHeader>
         <IonContent class="ion-padding">
-            <h2>Our Rooms</h2>
+            <h1>Our Rooms</h1>
             <ion-list>
                 <ion-item v-for="room in rooms" :key="room.id">
                     <ion-label>
