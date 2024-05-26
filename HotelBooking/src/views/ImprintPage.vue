@@ -9,31 +9,40 @@
         <IonContent class="ion-padding">
             <h2>Legal Information</h2>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur ligula in orci suscipit,
-                eget lobortis nunc laoreet. Nullam et libero ac justo posuere fringilla at vel dui. Sed rutrum magna et
-                nisi eleifend, vel interdum magna faucibus. Nam ac interdum justo. Vivamus auctor, tortor ut molestie
-                mollis, arcu ipsum venenatis urna, vel vulputate purus risus nec justo. Nam fermentum ante quis dapibus
-                tristique. Nam ac lacus ut nisl vestibulum interdum.
+                Luxora Hotel <br>
+                123 Main Street <br>
+                City, State, Zip Code <br>
+                Country
             </p>
             <p>
-                Phasellus sagittis mi nec elit lobortis posuere. Vivamus hendrerit diam id diam vehicula efficitur.
-                Curabitur convallis efficitur massa, ut suscipit mauris varius id. Vivamus eget bibendum velit. Ut id
-                urna semper, suscipit lacus ac, sollicitudin magna. Fusce eget ullamcorper erat. Duis tincidunt, odio ac
-                efficitur laoreet, nisi libero tincidunt enim, vitae maximus urna risus non metus. Curabitur eleifend,
-                velit non posuere tincidunt, nulla turpis vehicula eros, at hendrerit ante nisi vel lorem. Integer ut
-                fermentum eros, id pharetra felis. In tincidunt, ipsum sed volutpat tempor, nunc sapien finibus elit, ut
-                varius neque ante non mauris.
+                Contact <br>
+                Phone: +123-456-7890 <br>
+                Email: info@luxorahotel.com <br>
             </p>
             <p>
-                Aenean ut nisi vel ante commodo blandit in et ligula. Morbi eleifend odio eu dapibus convallis.
-                Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                turpis egestas. Ut tempus sapien sit amet magna dignissim fermentum. Duis fringilla, risus in
-                condimentum interdum, velit lorem varius turpis, nec ultricies neque dolor nec felis. Nulla facilisi.
-                Nulla ut semper justo, a efficitur nunc. Vivamus posuere nunc a felis malesuada, at laoreet velit
-                luctus. Ut eget lacus a justo congue feugiat. Fusce fringilla felis non mauris commodo, nec malesuada
-                lorem viverra. Curabitur blandit lacinia velit nec vestibulum. Quisque non aliquam turpis, in consequat
-                felis.
+                Represented by
+                <br>
+                John Smith
+                General Manager
+                <br>
+                VAT Identification Number
+                <br>
+                VAT ID: XXXXXXXX
             </p>
+            <h3>Disclaimer</h3>
+            <p>The information contained on this website is for general information purposes only. While we strive to
+                keep the information up to date and correct, we make no representations or warranties of any kind,
+                express or implied, about the completeness, accuracy, reliability, suitability, or availability with
+                respect to the website or the information, products, services, or related graphics contained on the
+                website for any purpose. Any reliance you place on such information is therefore strictly at your own
+                risk.
+            </p>
+            <p> In no event will we be liable for any loss or damage including without limitation, indirect or
+                consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits
+                arising out of, or in connection with, the use of this website.</p>
+            <p> Through this website, you are able to link to other websites that are not under the control of Luxora
+                Hotel. We have no control over the nature, content, and availability of those sites. The inclusion of
+                any links does</p>
             <ion-button class="return-button" @click="$router.push('/')">
                 <ion-icon slot="icon-only" :icon="arrowBack"></ion-icon>
             </ion-button>

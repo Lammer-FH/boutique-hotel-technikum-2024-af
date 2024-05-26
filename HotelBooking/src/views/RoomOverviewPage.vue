@@ -8,9 +8,9 @@
         <IonContent class="ion-padding">
             <h1>Our Rooms</h1>
             <ion-list>
-                <ion-item v-for="(room, index) in paginatedRooms" :key="room.id">
+                <ion-item v-for="(room, index) in paginatedRooms" :key="room.id" @click="selectRoom(room.id)">
                     <img :src="getImagePath(index)" alt="Room Image" class="room-image" />
-                    <ion-checkbox slot="start" :checked="selectedRoomId === room.id" @ionChange="selectRoom(room.id)">
+                    <ion-checkbox slot="start" :checked="selectedRoomId === room.id">
                     </ion-checkbox>
                     <ion-label>
                         <h3>{{ room.title }}</h3>
