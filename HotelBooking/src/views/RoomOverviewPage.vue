@@ -24,11 +24,14 @@
                     </ion-label>
                 </ion-item>
             </ion-list>
+            <div class="availability-button-container">
+                <ion-button color="mygreen" @click="checkAvailability" class="availability-button">Check
+                    Availability</ion-button>
+            </div>
             <div class="pagination-container">
                 <ion-button @click="prevPage" :disabled="currentPage === 1">Previous</ion-button>
                 <ion-button @click="nextPage" :disabled="currentPage === totalPages">Next</ion-button>
             </div>
-            <ion-button class="return-button" @click="navigateToWelcome">Return</ion-button>
         </IonContent>
     </ion-page>
 </template>
@@ -171,22 +174,29 @@ export default {
         selectRoom(roomId: number) {
             this.selectedRoomId = roomId;
         },
+        checkAvailability() {
+            //TODO
+        },
     }
 };
 </script>
 
 <style scoped>
 .pagination-container {
+    margin-top: 50px;
     display: flex;
     justify-content: center;
-    margin-top: 20px;
 }
 
-.return-button {
-    position: fixed;
-    bottom: 16px;
-    right: 32px;
-    z-index: 100;
+.availability-button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.availability-button {
+    width: 20em;
+    font-size: 1.2em;
 }
 
 .extras-list {
