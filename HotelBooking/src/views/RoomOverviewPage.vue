@@ -2,6 +2,9 @@
     <ion-page>
         <IonHeader>
             <IonToolbar>
+                <ion-button @click="navigateToWelcome">
+                    <ion-icon slot="icon-only" :icon="arrowBackOutline"></ion-icon>
+                </ion-button>
                 <ion-title slot="end">Room Overview</ion-title>
             </IonToolbar>
         </IonHeader>
@@ -38,7 +41,7 @@
 
 <script lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonIcon, IonButton, IonCheckbox } from '@ionic/vue';
-import { wifiOutline, snowOutline, wineOutline, volumeMuteOutline, tvOutline, checkmarkCircleOutline } from 'ionicons/icons';
+import { wifiOutline, snowOutline, wineOutline, volumeMuteOutline, tvOutline, checkmarkCircleOutline, arrowBackOutline } from 'ionicons/icons';
 import axios from 'axios';
 
 interface Room {
@@ -83,6 +86,11 @@ export default {
     },
     mounted() {
         this.fetchRooms();
+    },
+    setup() {
+        return {
+            arrowBackOutline
+        };
     },
     methods: {
         async fetchRooms() {
