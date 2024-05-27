@@ -26,10 +26,13 @@ public class RoomController {
     private RoomService service;
 
     @GetMapping(path="")
-    public Iterable<Room> ascertainApiParameter(@RequestParam Map<String, String> action){
+    public Map<String, Object> ascertainApiParameter(@RequestParam Map<String, String> action){
         Iterable<Room> resultFromService = null;
         resultFromService = service.getAllRooms();
-        return resultFromService;
+        Map<String, Object> response = new HashMap<>();
+        response.put("rooms", resultFromService);
+        return response;
+        //return resultFromService;
     }
 
 

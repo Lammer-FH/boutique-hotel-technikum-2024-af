@@ -1,7 +1,9 @@
 package com.fhtechnikum.hotel_backend.model;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 //import javax.persistence.*;
 
+@JsonPropertyOrder({"id", "title", "description"})
 @Entity(name = "ROOM")
 @Table(name = "ROOM")
 public class Room {
