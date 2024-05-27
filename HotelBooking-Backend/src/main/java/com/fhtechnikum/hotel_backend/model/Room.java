@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 //import javax.persistence.*;
 
-@JsonPropertyOrder({"id", "title", "description"})
+@JsonPropertyOrder({"roomid", "title", "description"})
 @Entity(name = "ROOM")
 @Table(name = "ROOM")
 public class Room {
@@ -17,8 +17,8 @@ public class Room {
 
     public Room() {}
 
-    public int getId(){return ROOM_ID;}
-    public String getTitle(){return ROOM_TITLE;}
-    public String getDescription(){return ROOM_DESCRIPTION;}
+    public int getroomid(){return ROOM_ID;}
+    public String gettitle(){return ROOM_TITLE;}
+    public String getdescription(){return ROOM_DESCRIPTION;}
 
 }
