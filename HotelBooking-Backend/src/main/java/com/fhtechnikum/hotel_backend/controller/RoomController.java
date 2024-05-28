@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,8 @@ public class RoomController {
     @Autowired
     private RoomService service;
 
-    @GetMapping(path="")
+    @CrossOrigin(origins = "http://localhost:8100")
+    @GetMapping(path = "")
     public Map<String, Object> ascertainApiParameter(@RequestParam Map<String, String> action){
         Iterable<Room> resultFromService = null;
         resultFromService = service.getAllRooms();
