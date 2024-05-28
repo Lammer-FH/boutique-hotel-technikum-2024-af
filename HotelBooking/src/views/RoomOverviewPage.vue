@@ -95,9 +95,14 @@ export default {
     methods: {
         async fetchRooms() {
             try {
-                const response = await axios.get('https://your-backend-api-url/rooms');
-                if (response.data && response.data.length > 0) {
-                    this.rooms = response.data;
+                const response = await axios.get('http://127.0.0.1:8080/api/v1/rooms');
+                if (response.data && response.data.rooms && response.data.rooms.length > 0) {
+                    this.rooms = response.data.rooms.map((room: any) => ({
+                        id: room.roomid,
+                        title: room.title,
+                        description: room.description,
+                        extras: room.extras || [],
+                    }));
                 } else {
                     this.setDefaultRoom();
                 }
@@ -114,36 +119,6 @@ export default {
                     description:
                         'This is a default room description. This room is provided as an example in case the API call fails or returns no data.',
                     extras: ['Free WiFi', 'Air Conditioning', 'Mini Bar'],
-                },
-                {
-                    id: 1,
-                    title: 'Deluxe Room',
-                    description: 'A spacious room with deluxe amenities and a beautiful view.',
-                    extras: ['TV', 'Air Conditioning', 'Mini Bar'],
-                },
-                {
-                    id: 2,
-                    title: 'Suite Room',
-                    description: 'An elegant suite with separate living area and luxury features.',
-                    extras: ['Free WiFi', 'Mini Bar', 'Noise Protection'],
-                },
-                {
-                    id: 3,
-                    title: 'Standard Room',
-                    description: 'A comfortable standard room with essential amenities.',
-                    extras: ['Free WiFi', 'TV', 'Air Conditioning'],
-                },
-                {
-                    id: 4,
-                    title: 'Family Room',
-                    description: 'A spacious room perfect for families, with additional sleeping arrangements.',
-                    extras: ['TV', 'Mini Bar', 'Noise Protection'],
-                },
-                {
-                    id: 5,
-                    title: 'Executive Room',
-                    description: 'A premium room with executive amenities and a work area.',
-                    extras: ['Free WiFi', 'Air Conditioning', 'TV'],
                 },
             ] as Room[];
         },
