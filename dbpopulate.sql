@@ -5,10 +5,10 @@ TRUNCATE TABLE ROOM;
 
 INSERT INTO ROOM (ROOM_ID, ROOM_TITLE, ROOM_DESCRIPTION) VALUES 
 (1, 'Single room without extras', 'Beautiful room, beautiful view, small but nice, some text'), 
-(2, 'Single room with extras', 'Beautiful room, beautiful view, small but many thangs, some text');
-(3, 'Single room A', 'Nice room, beautiful view, small but many thangs, some text');
-(4, 'Single room B', 'Beautiful room, beautiful view, small but many thangs, some text');
-(5, 'Double room A', 'Nice room, beautiful view, small but many thangs, some text');
+(2, 'Single room with extras', 'Beautiful room, beautiful view, small but many thangs, some text'),
+(3, 'Single room A', 'Nice room, beautiful view, small but many thangs, some text'),
+(4, 'Single room B', 'Beautiful room, beautiful view, small but many thangs, some text'),
+(5, 'Double room A', 'Nice room, beautiful view, small but many thangs, some text'),
 (6, 'Double room B', 'Beautiful room, beautiful view, small but many thangs, some text');
 
 INSERT INTO EXTRA (EXTRA_ID, EXTRA_NAME) VALUES 
