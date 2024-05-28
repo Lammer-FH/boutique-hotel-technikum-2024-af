@@ -1,2 +1,17 @@
-/* For information on how to create your own theme, please see:
-http://ionicframework.com/docs/theming/ */
+:root {
+    --ion-color-mygreen: #0A5C36;
+    --ion-color-mygreen-rgb: 10, 92, 54;
+    --ion-color-mygreen-contrast: #ffffff;
+    --ion-color-mygreen-contrast-rgb: 255, 255, 255;
+    --ion-color-mygreen-shade: #095130;
+    --ion-color-mygreen-tint: #236c4a;
+}
+
+.ion-color-mygreen {
+    --ion-color-base: var(--ion-color-mygreen);
+    --ion-color-base-rgb: var(--ion-color-mygreen-rgb);
+    --ion-color-contrast: var(--ion-color-mygreen-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-mygreen-contrast-rgb);
+    --ion-color-shade: var(--ion-color-mygreen-shade);
+    --ion-color-tint: var(--ion-color-mygreen-tint);
+}

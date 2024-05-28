@@ -35,6 +35,7 @@
                         <div class="description">Interior</div>
                     </div>
                 </div>
+                <ion-button class="check-rooms-button" @click="$router.push('/room-overview')">Check Rooms</ion-button>
             </div>
         </IonContent>
         <FooterPage></FooterPage>
@@ -42,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonThumbnail } from '@ionic/vue';
+import { IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonThumbnail, IonButton } from '@ionic/vue';
 import FooterPage from './FooterPage.vue';
 
 export default {
@@ -54,6 +55,7 @@ export default {
         IonContent,
         IonToolbar,
         IonThumbnail,
+        IonButton,
         FooterPage
     }
 };
@@ -98,6 +100,10 @@ ion-thumbnail img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.check-rooms-button {
+    margin-top: 16px;
 }
 
 @media (min-width: 600px) {

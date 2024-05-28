@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import Welcomepage from '../views/WelcomePage.vue'
 import AboutPage from '../views/AboutPage.vue'
 import ImprintPage from '../views/ImprintPage.vue'
+import RoomOverviewPage from '../views/RoomOverviewPage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -23,6 +24,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/imprint',
     name: 'Imprint',
     component: ImprintPage
+  },
+  {
+    path: '/room-overview',
+    name: 'RoomOverview',
+    component: RoomOverviewPage
   }
 ]
 
