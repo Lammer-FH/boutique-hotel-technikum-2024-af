@@ -7,9 +7,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/rooms")
@@ -25,7 +29,8 @@ public class RoomController {
     @Autowired
     private RoomService service;
 
-    @GetMapping(path="")
+    @CrossOrigin(origins = "http://localhost:8100")
+    @GetMapping(path = "")
     public Map<String, Object> ascertainApiParameter(@RequestParam Map<String, String> action){
         Iterable<Room> resultFromService = null;
         resultFromService = service.getAllRooms();
@@ -33,6 +38,16 @@ public class RoomController {
         response.put("rooms", resultFromService);
         return response;
         //return resultFromService;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Room> getRoomById(@PathVariable Integer id) {
+        Optional<Room> room = service.getRoomById(id);
+        if (room.isPresent()) {
+            return ResponseEntity.ok(room.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
