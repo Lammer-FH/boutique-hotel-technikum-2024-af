@@ -26,10 +26,6 @@ export default {
         ExtrasList
     },
     props: {
-        rooms: {
-            type: Array as () => { id: number; title: string; description: string; extras: string[] }[],
-            required: true
-        },
         paginatedRooms: {
             type: Array as () => { id: number; title: string; description: string; extras: string[] }[],
             required: true
