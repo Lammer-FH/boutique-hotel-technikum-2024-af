@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { IonList, IonItem, IonLabel, IonCheckbox } from '@ionic/vue';
-import ExtrasList from './ExtrasListPage.vue';
+import ExtrasList from './ExtrasListModel.vue'
 
 export default {
     name: 'RoomList',

@@ -28,7 +28,7 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
 import axios from 'axios';
-import RoomList from './RoomListPage.vue';
+import RoomList from '../Models/RoomListModel.vue'
 
 interface Room {
     id: number;

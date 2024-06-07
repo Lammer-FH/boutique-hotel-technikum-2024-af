@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonThumbnail, IonButton } from '@ionic/vue';
-import FooterPage from './FooterPage.vue';
+import FooterPage from '../Models/FooterModel.vue'
 
 export default {
     name: 'HotelInfoPage',
