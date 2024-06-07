@@ -10,23 +10,8 @@
         </IonHeader>
         <IonContent class="ion-padding">
             <h1>Our Rooms</h1>
-            <ion-list>
-                <ion-item v-for="(room, index) in paginatedRooms" :key="room.id" @click="selectRoom(room.id)">
-                    <img :src="getImagePath(index)" alt="Room Image" class="room-image" />
-                    <ion-checkbox slot="start" :checked="selectedRoomId === room.id">
-                    </ion-checkbox>
-                    <ion-label>
-                        <h3>{{ room.title }}</h3>
-                        <p>{{ room.description }}</p>
-                        <ul class="extras-list">
-                            <li v-for="extra in room.extras" :key="extra" class="extra-item">
-                                <ion-icon :icon="getIcon(extra)"></ion-icon>
-                                {{ extra }}
-                            </li>
-                        </ul>
-                    </ion-label>
-                </ion-item>
-            </ion-list>
+            <RoomList :rooms="rooms" :paginatedRooms="paginatedRooms" :selectedRoomId="selectedRoomId"
+                @selectRoom="selectRoom" />
             <div class="availability-button-container">
                 <ion-button color="mygreen" @click="checkAvailability" class="availability-button">Check
                     Availability</ion-button>
@@ -40,9 +25,10 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonIcon, IonButton, IonCheckbox } from '@ionic/vue';
-import { wifiOutline, snowOutline, wineOutline, volumeMuteOutline, tvOutline, checkmarkCircleOutline, arrowBackOutline } from 'ionicons/icons';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon } from '@ionic/vue';
+import { arrowBackOutline } from 'ionicons/icons';
 import axios from 'axios';
+import RoomList from './RoomListPage.vue';
 
 interface Room {
     id: number;
@@ -59,12 +45,9 @@ export default {
         IonToolbar,
         IonTitle,
         IonContent,
-        IonList,
-        IonItem,
-        IonLabel,
         IonButton,
         IonIcon,
-        IonCheckbox
+        RoomList
     },
     data() {
         return {
@@ -116,33 +99,13 @@ export default {
                 {
                     id: 0,
                     title: 'Default Room',
-                    description:
-                        'This is a default room description. This room is provided as an example in case the API call fails or returns no data.',
+                    description: 'This is a default room description. This room is provided as an example in case the API call fails or returns no data.',
                     extras: ['Free WiFi', 'Air Conditioning', 'Mini Bar'],
                 },
             ] as Room[];
         },
         navigateToWelcome() {
             this.$router.push('/');
-        },
-        getIcon(extra: string) {
-            switch (extra.toLowerCase()) {
-                case 'free wifi':
-                    return wifiOutline;
-                case 'air conditioning':
-                    return snowOutline;
-                case 'mini bar':
-                    return wineOutline;
-                case 'noise protection':
-                    return volumeMuteOutline;
-                case 'tv':
-                    return tvOutline;
-                default:
-                    return checkmarkCircleOutline;
-            }
-        },
-        getImagePath(index: number) {
-            return `/Rooms/room${index + 1}.jpg`;
         },
         nextPage() {
             if (this.currentPage < this.totalPages) {
@@ -158,7 +121,7 @@ export default {
             this.selectedRoomId = roomId;
         },
         checkAvailability() {
-            //TODO
+            alert(this.selectedRoomId)
         },
     }
 };
@@ -180,25 +143,5 @@ export default {
 .availability-button {
     width: 20em;
     font-size: 1.2em;
-}
-
-.extras-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.extra-item {
-    display: flex;
-    align-items: center;
-}
-
-.extra-item ion-icon {
-    margin-right: 8px;
-}
-
-.room-image {
-    width: 100px;
-    height: auto;
-    margin-right: 10px;
 }
 </style>
