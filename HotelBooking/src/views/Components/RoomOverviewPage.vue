@@ -12,7 +12,8 @@
             <h1>Our Rooms</h1>
             <RoomList :paginatedRooms="paginatedRooms" :selectedRoomId="selectedRoomId" @selectRoom="selectRoom" />
             <div class="availability-button-container">
-                <ion-button color="mygreen" @click="checkAvailability" class="availability-button">Check
+                <ion-button color="mygreen" @click="checkAvailability" class="availability-button"
+                    :disabled="!selectedRoomId">Check
                     Availability</ion-button>
             </div>
             <div class="pagination-container">
@@ -87,7 +88,7 @@ export default {
             }
         },
         selectRoom(roomId: number) {
-            this.selectedRoomId = roomId;
+            this.selectedRoomId = this.selectedRoomId === roomId ? null : roomId;
         },
         checkAvailability() {
             alert(this.selectedRoomId);
