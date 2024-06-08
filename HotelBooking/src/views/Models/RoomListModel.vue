@@ -15,6 +15,7 @@
 <script lang="ts">
 import { IonList, IonItem, IonLabel, IonCheckbox } from '@ionic/vue';
 import ExtrasList from './ExtrasListModel.vue'
+import { PropType } from 'vue';
 
 export default {
     name: 'RoomList',
@@ -31,7 +32,7 @@ export default {
             required: true
         },
         selectedRoomId: {
-            type: Number,
+            type: [Number, null] as PropType<number | null>,
             default: null
         }
     },
