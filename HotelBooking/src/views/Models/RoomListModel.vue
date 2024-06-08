@@ -14,7 +14,8 @@
 
 <script lang="ts">
 import { IonList, IonItem, IonLabel, IonCheckbox } from '@ionic/vue';
-import ExtrasList from './ExtrasListPage.vue';
+import ExtrasList from './ExtrasListModel.vue'
+import { PropType } from 'vue';
 
 export default {
     name: 'RoomList',
@@ -26,16 +27,12 @@ export default {
         ExtrasList
     },
     props: {
-        rooms: {
-            type: Array as () => { id: number; title: string; description: string; extras: string[] }[],
-            required: true
-        },
         paginatedRooms: {
             type: Array as () => { id: number; title: string; description: string; extras: string[] }[],
             required: true
         },
         selectedRoomId: {
-            type: Number,
+            type: [Number, null] as PropType<number | null>,
             default: null
         }
     },
