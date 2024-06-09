@@ -91,7 +91,7 @@ export default {
             this.selectedRoomId = this.selectedRoomId === roomId ? null : roomId;
         },
         checkAvailability() {
-            alert(this.selectedRoomId);
+            this.$router.push({ name: 'RoomAvailabilityCheck', params: { roomId: this.selectedRoomId } });
         },
     },
 };

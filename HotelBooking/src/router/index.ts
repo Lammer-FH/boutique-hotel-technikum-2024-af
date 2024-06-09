@@ -4,6 +4,7 @@ import Welcomepage from '../views/Components/WelcomePage.vue'
 import AboutPage from '../views/Components/AboutPage.vue'
 import ImprintPage from '../views/Components/ImprintPage.vue'
 import RoomOverviewPage from '../views/Components/RoomOverviewPage.vue'
+import RoomAvailabilityCheckPage from '../views/Components/RoomAvailabilityCheckPage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -29,7 +30,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/room-overview',
     name: 'RoomOverview',
     component: RoomOverviewPage
-  }
+  },
+  {
+    path: '/room-availability-check/:roomId',
+    name: 'RoomAvailabilityCheck',
+    component: RoomAvailabilityCheckPage
+  },
 ]
 
 const router = createRouter({
