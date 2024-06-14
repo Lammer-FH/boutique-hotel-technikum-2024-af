@@ -19,9 +19,9 @@ export const useRoomStore = defineStore('roomStore', {
                 if (response.data && response.data.rooms && response.data.rooms.length > 0) {
                     this.rooms = response.data.rooms.map((room: any) => ({
                         id: room.roomid,
-                        title: room.title,
-                        description: room.description,
-                        extras: room.extras || [],
+                        title: room.roomTitle,
+                        description: room.roomDescription,
+                        extras: room.roomExtras.map((extra: any) => extra.extraName),
                     }));
                 } else {
                     this.setDefaultRoom();
