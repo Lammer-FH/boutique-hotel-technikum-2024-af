@@ -18,26 +18,17 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/rooms")
 public class RoomController {
-/*
-    @GetMapping
-    public Map<String, String> getRooms() {
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Hello World");
-        return response;
-    }
-*/
     @Autowired
     private RoomService service;
 
     @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping(path = "")
-    public Map<String, Object> ascertainApiParameter(@RequestParam Map<String, String> action){
+    public Map<String, Object> getAllRooms(@RequestParam Map<String, String> action) {
         Iterable<Room> resultFromService = null;
         resultFromService = service.getAllRooms();
         Map<String, Object> response = new HashMap<>();
         response.put("rooms", resultFromService);
         return response;
-        //return resultFromService;
     }
 
     @GetMapping("/{id}")
@@ -49,8 +40,6 @@ public class RoomController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 }
 
 

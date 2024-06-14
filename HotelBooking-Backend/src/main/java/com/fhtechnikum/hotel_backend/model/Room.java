@@ -1,24 +1,21 @@
 package com.fhtechnikum.hotel_backend.model;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-//import javax.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@JsonPropertyOrder({"roomid", "title", "description"})
 @Entity(name = "ROOM")
 @Table(name = "ROOM")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Room {
     @Id
-    @Column 
-    private int ROOM_ID;
-    @Column
-    private String ROOM_TITLE;
-    @Column
-    private String ROOM_DESCRIPTION;
-
-    public Room() {}
-
-    public int getroomid(){return ROOM_ID;}
-    public String gettitle(){return ROOM_TITLE;}
-    public String getdescription(){return ROOM_DESCRIPTION;}
-
+    @Column(name = "ROOM_ID")
+    private int roomId;
+    @Column(name = "ROOM_TITLE")
+    private String roomTitle;
+    @Column(name = "ROOM_DESCRIPTION")
+    private String roomDescription;
 }
