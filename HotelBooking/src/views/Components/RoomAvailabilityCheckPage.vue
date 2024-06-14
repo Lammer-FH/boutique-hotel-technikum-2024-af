@@ -20,10 +20,10 @@
                         <IonLabel position="floating">Departure Date</IonLabel>
                         <IonInput type="date" v-model="departureDate" required></IonInput>
                     </IonItem>
-                    <IonItem class="form-item">
+                    <!-- <IonItem class="form-item">
                         <IonLabel position="floating">Number of Persons</IonLabel>
                         <IonInput type="number" v-model="numberOfPersons" min="1" required></IonInput>
-                    </IonItem>
+                    </IonItem> -->
                     <div class="availability-button-container">
                         <ion-button type="submit" color="mygreen" class="availability-button">Check
                             Availability</ion-button>
@@ -39,6 +39,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIco
 import { arrowBackOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
+import { useBookingStore } from '../Stores/BookingStore'
 
 export default defineComponent({
     name: 'RoomAvailabilityCheckPage',
@@ -58,7 +59,7 @@ export default defineComponent({
         return {
             arrivalDate: '',
             departureDate: '',
-            numberOfPersons: 1,
+            // numberOfPersons: 1,
             roomId: null as number | null,
         };
     },
@@ -75,8 +76,39 @@ export default defineComponent({
         navigateBack() {
             this.$router.back();
         },
-        checkAvailability() {
-            alert(`Checking availability for Room ID: ${this.roomId}, Arrival Date: ${this.arrivalDate}, Departure Date: ${this.departureDate}, Number of Persons: ${this.numberOfPersons}`);
+        async checkAvailability() {
+            if(!this.checkDateOrder())
+            {
+                return;
+            }
+
+            const bookingStore = useBookingStore();
+            await bookingStore.checkAvailability(this.roomId as number, this.arrivalDate, this.departureDate);
+
+            if(bookingStore.response == 200)
+            {
+                alert('Success');
+            }
+            else
+            {
+                alert('Failure');
+            }
+        },
+        checkDateOrder() {
+            if(new Date(this.arrivalDate).getTime() > new Date(this.departureDate).getTime())
+            {
+                alert("date wrong order");
+                return false;
+            }
+            else if(new Date(this.arrivalDate).getTime() == new Date(this.departureDate).getTime())
+            {
+                alert("same date");
+                return false;
+            }
+            else
+            {
+                return true
+            }
         },
     },
 });
