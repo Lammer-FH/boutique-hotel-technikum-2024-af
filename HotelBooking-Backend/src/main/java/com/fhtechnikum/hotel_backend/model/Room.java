@@ -1,6 +1,5 @@
 package com.fhtechnikum.hotel_backend.model;
 import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
