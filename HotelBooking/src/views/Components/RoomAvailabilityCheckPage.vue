@@ -20,10 +20,6 @@
                         <IonLabel position="floating">Departure Date</IonLabel>
                         <IonInput type="date" v-model="departureDate" required></IonInput>
                     </IonItem>
-                    <!-- <IonItem class="form-item">
-                        <IonLabel position="floating">Number of Persons</IonLabel>
-                        <IonInput type="number" v-model="numberOfPersons" min="1" required></IonInput>
-                    </IonItem> -->
                     <div class="availability-button-container">
                         <ion-button type="submit" color="mygreen" class="availability-button">Check
                             Availability</ion-button>
@@ -35,11 +31,28 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItem, IonLabel, IonInput } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItem, IonLabel, IonInput, alertController } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
 import { useBookingStore } from '../Stores/BookingStore'
+
+// interface BookingTime {
+//     id: number;
+//     startdate: string;
+//     enddate: string;
+// }
+
+// const errorAlert = async () => {
+//     const alert = await alertController.create({
+//       header: 'A Short Title Is Best',
+//       subHeader: 'A Sub Header Is Optional',
+//       message: 'A message should be a short, complete sentence.',
+//       buttons: ['Action'],
+//     });
+
+//     await alert.present();
+//   };
 
 export default defineComponent({
     name: 'RoomAvailabilityCheckPage',
@@ -59,7 +72,6 @@ export default defineComponent({
         return {
             arrivalDate: '',
             departureDate: '',
-            // numberOfPersons: 1,
             roomId: null as number | null,
         };
     },
@@ -91,18 +103,27 @@ export default defineComponent({
             }
             else
             {
-                alert('Failure');
+                this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
             }
+        },
+        async errorAlert(header: string, message: string) {
+            const alert = await alertController.create({
+            header: header,
+            message: message,
+            buttons: ['OK'],
+            });
+
+            await alert.present();
         },
         checkDateOrder() {
             if(new Date(this.arrivalDate).getTime() > new Date(this.departureDate).getTime())
             {
-                alert("date wrong order");
+                this.errorAlert("Date error", "The deperature can not occur before the arrival. Please correct your input");
                 return false;
             }
             else if(new Date(this.arrivalDate).getTime() == new Date(this.departureDate).getTime())
             {
-                alert("same date");
+                this.errorAlert("Date error", "The deperature can not be on the same day as the arrival. Please correct your input");
                 return false;
             }
             else
