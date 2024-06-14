@@ -38,3 +38,8 @@ CREATE TABLE HOTEL_INFO (
                             INFO_KEY varchar(1000),
                             INFO_VALUE varchar(8000)
 );
+
+create user if not exists application_user
+    identified with 'sadf123';
+
+grant delete, insert, select, update on boutique_hotel.* to application_user;
