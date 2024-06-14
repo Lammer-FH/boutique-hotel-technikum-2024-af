@@ -1,24 +1,28 @@
 package com.fhtechnikum.hotel_backend.model;
 import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-//import javax.persistence.*;
+import lombok.*;
 
-@JsonPropertyOrder({"roomid", "title", "description"})
+import java.util.Set;
+
 @Entity(name = "ROOM")
 @Table(name = "ROOM")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Room {
     @Id
-    @Column 
-    private int ROOM_ID;
-    @Column
-    private String ROOM_TITLE;
-    @Column
-    private String ROOM_DESCRIPTION;
+    @Column(name = "ROOM_ID")
+    private int roomId;
 
-    public Room() {}
+    @Column(name = "ROOM_TITLE")
+    private String roomTitle;
 
-    public int getroomid(){return ROOM_ID;}
-    public String gettitle(){return ROOM_TITLE;}
-    public String getdescription(){return ROOM_DESCRIPTION;}
+    @Column(name = "ROOM_DESCRIPTION")
+    private String roomDescription;
 
+    @ManyToMany(targetEntity = Extra.class, cascade = CascadeType.ALL)
+    @JoinTable(name = "ROOM_EXTRA",
+            joinColumns = { @JoinColumn(name = "ROOM_ID_FK") },
+            inverseJoinColumns = { @JoinColumn(name = "EXTRA_ID_FK") })
+    private Set<Extra> roomExtras;
 }
