@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 public class Guest {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "GUEST_ID")
     private int guestId;
 
@@ -19,6 +20,6 @@ public class Guest {
     @Column(name = "GUEST_SURNAME")
     private String guestSurname;
 
-    @Column(name = "GUEST_EMAIL", unique = true)
+    @Column(name = "GUEST_EMAIL", unique = true, nullable = false)
     private String guestEmail;
 }

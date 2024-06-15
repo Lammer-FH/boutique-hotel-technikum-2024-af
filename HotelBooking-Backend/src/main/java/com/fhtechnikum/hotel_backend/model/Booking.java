@@ -12,11 +12,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Booking {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BOOKING_ID")
     private int bookingId;
 
     @Column(name = "ROOM_ID_FK")
     private int roomId;
+
+    @ManyToOne
+    @JoinColumn(name = "ROOM_ID_FK")
+    private Room room;
 
     @Column(name = "GUEST_ID_FK")
     private int guestId;
