@@ -103,7 +103,7 @@ export default defineComponent({
             }
 
             const bookingStore = useBookingStore();
-            //await bookingStore.checkAvailability(this.roomId as number, this.arrivalDate, this.departureDate);
+            await bookingStore.submitReservation(this.name, this.surname, this.email, this.breakfast);
 
             // if(bookingStore.response == 200)
             // {
