@@ -5,6 +5,7 @@ import com.fhtechnikum.hotel_backend.model.RoomAvailability;
 import com.fhtechnikum.hotel_backend.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,13 @@ public class BookingController {
     @GetMapping(path = "/{bookingId}")
     public Optional<Booking> getBookingById(@PathVariable int bookingId) {
         return bookingService.getBookingById(bookingId);
+    }
+
+    @PostMapping(path = "")
+    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
+        return bookingService.insertBooking(booking)
+                .map(createdBooking -> new ResponseEntity<>(booking, HttpStatus.CREATED))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @GetMapping(path = "")

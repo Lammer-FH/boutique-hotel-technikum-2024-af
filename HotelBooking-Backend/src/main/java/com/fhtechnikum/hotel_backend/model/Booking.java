@@ -26,6 +26,10 @@ public class Booking {
     @Column(name = "GUEST_ID_FK")
     private int guestId;
 
+    @ManyToOne
+    @JoinColumn(name = "GUEST_ID_FK")
+    private Guest guest;
+
     @Column(name = "BOOKING_DATE_START")
     private LocalDateTime startTime;
 
