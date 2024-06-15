@@ -12,14 +12,27 @@
             <div class="form-container">
                 <h1 class="page-title">Reservation form</h1>
                 <form @submit.prevent="submitReservation" class="reservation-form">
-                    <!-- <IonItem class="form-item">
-                        <IonLabel position="floating">Arrival Date</IonLabel>
-                        <IonInput type="date" v-model="arrivalDate" required></IonInput>
+                    <IonItem class="form-item">
+                        <IonLabel position="floating">Name</IonLabel>
+                        <IonInput type="text" v-model="name" required></IonInput>
                     </IonItem>
                     <IonItem class="form-item">
-                        <IonLabel position="floating">Departure Date</IonLabel>
-                        <IonInput type="date" v-model="departureDate" required></IonInput>
-                    </IonItem> -->
+                        <IonLabel position="floating">Surname</IonLabel>
+                        <IonInput type="text" v-model="surname" required></IonInput>
+                    </IonItem>
+                    <IonItem class="form-item">
+                        <IonLabel position="floating">Email</IonLabel>
+                        <IonInput type="email" v-model="email" required></IonInput>
+                    </IonItem>
+                    <IonItem class="form-item">
+                        <IonLabel position="floating">Confirm Email</IonLabel>
+                        <IonInput type="email" v-model="confirmEmail" required></IonInput>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel>Breakfast</IonLabel>
+                        <IonToggle v-model="breakfast"></IonToggle>
+                        <IonLabel>{{ breakfastStatus }}</IonLabel>
+                    </IonItem>
                     <div class="reservation-button-container">
                         <ion-button type="submit" color="mygreen" class="reservation-button">Submit reservation</ion-button>
                     </div>
@@ -30,28 +43,12 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItem, IonLabel, IonInput, alertController } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItem, IonLabel, IonInput, alertController, IonToggle } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
 import { useBookingStore } from '../Stores/BookingStore'
 
-// interface BookingTime {
-//     id: number;
-//     startdate: string;
-//     enddate: string;
-// }
-
-// const errorAlert = async () => {
-//     const alert = await alertController.create({
-//       header: 'A Short Title Is Best',
-//       subHeader: 'A Sub Header Is Optional',
-//       message: 'A message should be a short, complete sentence.',
-//       buttons: ['Action'],
-//     });
-
-//     await alert.present();
-//   };
 
 export default defineComponent({
     name: 'BookingReservationPage',
@@ -66,13 +63,22 @@ export default defineComponent({
         IonItem,
         IonLabel,
         IonInput,
+        IonToggle,
     },
     data() {
         return {
-            // arrivalDate: '',
-            // departureDate: '',
+            name: '',
+            surname: '',
+            email: '',
+            confirmEmail: '',
+            breakfast: false,
             roomId: null as number | null,
         };
+    },
+    computed: {
+        breakfastStatus() {
+            return this.breakfast === true ? "Yes" : "No";
+        },
     },
     created() {
         const route = useRoute();
@@ -87,52 +93,45 @@ export default defineComponent({
         navigateBack() {
             this.$router.back();
         },
-        submitReservation() {
-            //
+        // submitReservation() {
+        //     //
+        // },
+        async submitReservation() {
+            if(!this.checkEmail())
+            {
+                return;
+            }
+
+            const bookingStore = useBookingStore();
+            //await bookingStore.checkAvailability(this.roomId as number, this.arrivalDate, this.departureDate);
+
+            // if(bookingStore.response == 200)
+            // {
+            //     alert('Success');
+            // }
+            // else
+            // {
+            //     this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
+            // }
         },
-        // async checkAvailability() {
-        //     if(!this.checkDateOrder())
-        //     {
-        //         return;
-        //     }
+        async errorAlert(header: string, message: string) {
+            const alert = await alertController.create({
+            header: header,
+            message: message,
+            buttons: ['OK'],
+            });
 
-        //     const bookingStore = useBookingStore();
-        //     await bookingStore.checkAvailability(this.roomId as number, this.arrivalDate, this.departureDate);
+            await alert.present();
+        },
+        checkEmail() {
+            if(this.email !== this.confirmEmail)
+            {
+                this.errorAlert("Email error", "The emails do not match. Please correct your input and try again.");
+                return false;
+            }
 
-        //     if(bookingStore.response == 200)
-        //     {
-        //         alert('Success');
-        //     }
-        //     else
-        //     {
-        //         this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
-        //     }
-        // },
-        // async errorAlert(header: string, message: string) {
-        //     const alert = await alertController.create({
-        //     header: header,
-        //     message: message,
-        //     buttons: ['OK'],
-        //     });
-
-        //     await alert.present();
-        // },
-        // checkDateOrder() {
-        //     if(new Date(this.arrivalDate).getTime() > new Date(this.departureDate).getTime())
-        //     {
-        //         this.errorAlert("Date error", "The deperature can not occur before the arrival. Please correct your input");
-        //         return false;
-        //     }
-        //     else if(new Date(this.arrivalDate).getTime() == new Date(this.departureDate).getTime())
-        //     {
-        //         this.errorAlert("Date error", "The deperature can not be on the same day as the arrival. Please correct your input");
-        //         return false;
-        //     }
-        //     else
-        //     {
-        //         return true
-        //     }
-        // },
+            return true;
+        },
     },
 });
 </script>
@@ -215,4 +214,9 @@ ion-button {
         font-size: 1em;
     }
 }
+
+ion-toggle {
+  zoom: 1.5;
+}
+
 </style>
