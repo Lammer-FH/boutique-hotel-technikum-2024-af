@@ -5,36 +5,44 @@
                 <ion-button @click="navigateBack">
                     <ion-icon slot="icon-only" :icon="arrowBackOutline"></ion-icon>
                 </ion-button>
-                <IonTitle slot="end">Reservation</IonTitle>
+                <IonTitle slot="end">Reservation Confirmation</IonTitle>
             </IonToolbar>
         </IonHeader>
         <IonContent class="ion-padding">
             <div class="form-container">
-                <h1 class="page-title">Reservation form</h1>
-                <form @submit.prevent="saveReservation" class="reservation-form">
+                <h1 class="page-title">Confirm Reservation data?</h1>
+                <form @submit.prevent="confirmReservation" class="reservation-form">
                     <IonItem class="form-item">
                         <IonLabel position="floating">Name</IonLabel>
-                        <IonInput type="text" v-model="name" required></IonInput>
+                        <IonInput type="text" v-model="name" required disabled></IonInput>
                     </IonItem>
                     <IonItem class="form-item">
                         <IonLabel position="floating">Surname</IonLabel>
-                        <IonInput type="text" v-model="surname" required></IonInput>
+                        <IonInput type="text" v-model="surname" required disabled></IonInput>
                     </IonItem>
                     <IonItem class="form-item">
                         <IonLabel position="floating">Email</IonLabel>
-                        <IonInput type="email" v-model="email" required></IonInput>
-                    </IonItem>
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Confirm Email</IonLabel>
-                        <IonInput type="email" v-model="confirmEmail" required></IonInput>
+                        <IonInput type="email" v-model="email" required disabled></IonInput>
                     </IonItem>
                     <IonItem>
                         <IonLabel>Breakfast</IonLabel>
-                        <IonToggle v-model="breakfast"></IonToggle>
+                        <IonToggle v-model="breakfast" disabled></IonToggle>
                         <IonLabel>{{ breakfastStatus }}</IonLabel>
                     </IonItem>
+                    <IonItem class="form-item">
+                        <IonLabel position="floating">Room</IonLabel>
+                        <IonInput type="text" v-model="roomTitle" required disabled></IonInput>
+                    </IonItem>
+                    <IonItem class="form-item">
+                        <IonLabel position="floating">Departure Date</IonLabel>
+                        <IonInput type="date" v-model="departureDate" required disabled></IonInput>
+                    </IonItem>
+                    <IonItem class="form-item">
+                        <IonLabel position="floating">Arrival Date</IonLabel>
+                        <IonInput type="date" v-model="arrivalDate" required disabled></IonInput>
+                    </IonItem>
                     <div class="reservation-button-container">
-                        <ion-button type="submit" color="mygreen" class="reservation-button">Submit reservation</ion-button>
+                        <ion-button type="submit" color="mygreen" class="reservation-button">Confirm reservation</ion-button>
                     </div>
                 </form>
             </div>
@@ -47,10 +55,10 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIco
 import { arrowBackOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import { useBookingStore } from '../Stores/BookingStore'
-
+import { useRoomStore } from '../Stores/RoomStore'
 
 export default defineComponent({
-    name: 'BookingReservationPage',
+    name: 'BookingReservationConfirmationPage',
     components: {
         IonPage,
         IonHeader,
@@ -66,17 +74,38 @@ export default defineComponent({
     },
     data() {
         return {
-            name: '',
-            surname: '',
-            email: '',
-            confirmEmail: '',
-            breakfast: false,
-            roomId: null as number | null,
+            bookingStore: null as any,
+            roomStore: null as any
         };
     },
+    created() {
+        this.bookingStore = useBookingStore();
+        this.roomStore = useRoomStore();
+    },
     computed: {
+        name() {
+            return this.bookingStore.reservation?.name;
+        },
+        surname() {
+            return this.bookingStore.reservation?.surname;
+        },
+        email() {
+            return this.bookingStore.reservation?.email;
+        },
+        breakfast() {
+            return this.bookingStore.reservation?.breakfast;
+        },
         breakfastStatus() {
             return this.breakfast === true ? "Yes" : "No";
+        },
+        roomTitle() {
+            return this.roomStore.currentRoom?.title;
+        },
+        arrivalDate() {
+            return this.bookingStore.bookingTime?.arrivalDate;
+        },
+        departureDate() {
+            return this.bookingStore.bookingTime?.departureDate;
         },
     },
     setup() {
@@ -88,16 +117,19 @@ export default defineComponent({
         navigateBack() {
             this.$router.back();
         },
-        async saveReservation() {
-            if(!this.checkEmail())
+        async confirmReservation() {
+
+
+            await this.bookingStore.submitReservation();
+
+            if(this.bookingStore.response === 200)
             {
-                return;
+                this.errorAlert("Buchung bestätigt", "Die Buchung wurde bestätigt");
             }
-
-            const bookingStore = useBookingStore();
-            await bookingStore.setReservation(this.name, this.surname, this.email, this.breakfast);
-
-            this.$router.push({ name: 'BookingReservationConfirmation' });
+            else
+            {
+                this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
+            }
         },
         async errorAlert(header: string, message: string) {
             const alert = await alertController.create({
@@ -107,15 +139,6 @@ export default defineComponent({
             });
 
             await alert.present();
-        },
-        checkEmail() {
-            if(this.email !== this.confirmEmail)
-            {
-                this.errorAlert("Email error", "The emails do not match. Please correct your input and try again.");
-                return false;
-            }
-
-            return true;
         },
     },
 });
@@ -201,7 +224,7 @@ ion-button {
 }
 
 ion-toggle {
-  zoom: 1.5;
+  zoom: 1.2;
 }
 
 </style>
