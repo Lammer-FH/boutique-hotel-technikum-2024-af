@@ -1,15 +1,16 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-// interface BookingTime {
-//     id: number;
-//     startdate: string;
-//     enddate: string;
-// }
+interface BookingTime {
+    id: number;
+    arrivalDate: string;
+    departureDate: string;
+}
 
 export const useBookingStore = defineStore('bookingStore', {
     state: () => ({
         response: null as number | null,
+        bookingTime: [] as BookingTime[],
     }),
     actions: {
         async checkAvailability(id: number, arrivalDate: string, departureDate: string) {
@@ -21,6 +22,15 @@ export const useBookingStore = defineStore('bookingStore', {
                 });
                 
                 this.response = response.status;
+
+                //implement successfull check later
+                this.bookingTime = [
+                    {
+                        id: id,
+                        arrivalDate: arrivalDate,
+                        departureDate: departureDate
+                    },
+                ];
 
             } catch (error) {
                 console.error('Error checking availability:', error);
