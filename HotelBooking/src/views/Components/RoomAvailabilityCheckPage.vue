@@ -101,9 +101,13 @@ export default defineComponent({
             {
                 alert('Success');
             }
+            else if(bookingStore.response == 404)
+            {
+                this.errorAlert("Room not available", "The room is already booked in this timeframe. Please try another timeframe.");
+            }
             else
             {
-                this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
+                this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com.");
             }
         },
         async errorAlert(header: string, message: string) {
@@ -118,12 +122,12 @@ export default defineComponent({
         checkDateOrder() {
             if(new Date(this.arrivalDate).getTime() > new Date(this.departureDate).getTime())
             {
-                this.errorAlert("Date error", "The deperature can not occur before the arrival. Please correct your input");
+                this.errorAlert("Date error", "The deperature can not occur before the arrival. Please correct your input.");
                 return false;
             }
             else if(new Date(this.arrivalDate).getTime() == new Date(this.departureDate).getTime())
             {
-                this.errorAlert("Date error", "The deperature can not be on the same day as the arrival. Please correct your input");
+                this.errorAlert("Date error", "The deperature can not be on the same day as the arrival. Please correct your input.");
                 return false;
             }
             else
