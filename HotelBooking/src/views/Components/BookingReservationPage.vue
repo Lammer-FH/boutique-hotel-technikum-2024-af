@@ -11,7 +11,7 @@
         <IonContent class="ion-padding">
             <div class="form-container">
                 <h1 class="page-title">Reservation form</h1>
-                <form @submit.prevent="submitReservation" class="reservation-form">
+                <form @submit.prevent="saveReservation" class="reservation-form">
                     <IonItem class="form-item">
                         <IonLabel position="floating">Name</IonLabel>
                         <IonInput type="text" v-model="name" required></IonInput>
@@ -93,19 +93,19 @@ export default defineComponent({
         navigateBack() {
             this.$router.back();
         },
-        // submitReservation() {
-        //     //
-        // },
-        async submitReservation() {
+        async saveReservation() {
             if(!this.checkEmail())
             {
                 return;
             }
 
             const bookingStore = useBookingStore();
-            await bookingStore.submitReservation(this.name, this.surname, this.email, this.breakfast);
+            await bookingStore.setReservation(this.name, this.surname, this.email, this.breakfast);
 
-            // if(bookingStore.response == 200)
+            //route to new component
+            //this.$router.push({ name: 'BookingReservation', params: { roomId: this.roomId } });
+
+            // if(bookingStore.response === 200)
             // {
             //     alert('Success');
             // }
