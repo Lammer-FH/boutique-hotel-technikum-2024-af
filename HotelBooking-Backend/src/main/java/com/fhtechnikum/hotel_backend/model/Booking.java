@@ -16,25 +16,19 @@ public class Booking {
     @Column(name = "BOOKING_ID")
     private int bookingId;
 
-    @Column(name = "ROOM_ID_FK")
-    private int roomId;
-
     @ManyToOne
     @JoinColumn(name = "ROOM_ID_FK")
     private Room room;
-
-    @Column(name = "GUEST_ID_FK")
-    private int guestId;
 
     @ManyToOne
     @JoinColumn(name = "GUEST_ID_FK")
     private Guest guest;
 
     @Column(name = "BOOKING_DATE_START")
-    private LocalDateTime startTime;
+    private LocalDateTime bookingStartTime;
 
     @Column(name = "BOOKING_DATE_END")
-    private LocalDateTime endTime;
+    private LocalDateTime bookingEndTime;
 
     @Column(name = "BREAKFAST")
     private boolean breakfast;

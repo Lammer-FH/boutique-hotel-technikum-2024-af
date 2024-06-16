@@ -35,7 +35,7 @@ public class BookingController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    @GetMapping(path = "")
+    @GetMapping(path = "/")
     public ResponseEntity<RoomAvailability> getRoomAvailability(
             @RequestParam int roomId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
