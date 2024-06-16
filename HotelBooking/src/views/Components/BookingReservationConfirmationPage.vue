@@ -9,43 +9,6 @@
             </IonToolbar>
         </IonHeader>
         <IonContent class="ion-padding">
-            <!-- <div class="form-container">
-                <h1 class="page-title">Check Reservation data?</h1>
-                <form @submit.prevent="confirmReservation" class="reservation-form">
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Name</IonLabel>
-                        <IonInput type="text" v-model="name" required disabled></IonInput>
-                    </IonItem>
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Surname</IonLabel>
-                        <IonInput type="text" v-model="surname" required disabled></IonInput>
-                    </IonItem>
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Email</IonLabel>
-                        <IonInput type="email" v-model="email" required disabled></IonInput>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel>Breakfast</IonLabel>
-                        <IonToggle v-model="breakfast" disabled></IonToggle>
-                        <IonLabel>{{ breakfastStatus }}</IonLabel>
-                    </IonItem>
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Room</IonLabel>
-                        <IonInput type="text" v-model="roomTitle" required disabled></IonInput>
-                    </IonItem>
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Departure Date</IonLabel>
-                        <IonInput type="date" v-model="departureDate" required disabled></IonInput>
-                    </IonItem>
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Arrival Date</IonLabel>
-                        <IonInput type="date" v-model="arrivalDate" required disabled></IonInput>
-                    </IonItem>
-                    <div class="reservation-button-container">
-                        <ion-button type="submit" color="mygreen" class="reservation-button">Confirm reservation</ion-button>
-                    </div>
-                </form>
-            </div> -->
             <h1>Your stay</h1>
             <ion-row style="border-bottom: ridge;">
                 <ion-col col-4>
@@ -69,6 +32,14 @@
                 </ion-col>
                 <ion-col col-4>
                 <ion-label><img :src="getImagePath(roomID)" alt="Room Image" class="room-image" /></ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row style="border-bottom: ridge;">
+                <ion-col col-4>
+                <ion-label >Extras</ion-label>
+                </ion-col>
+                <ion-col col-4>
+                <ion-label><ExtrasList :extras=roomExtras /></ion-label>
                 </ion-col>
             </ion-row>
             <ion-row style="border-bottom: ridge;">
@@ -141,6 +112,7 @@ import { arrowBackOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import { useBookingStore } from '../Stores/BookingStore'
 import { useRoomStore } from '../Stores/RoomStore'
+import ExtrasList from '../Models/ExtrasListModel.vue'
 
 export default defineComponent({
     name: 'BookingReservationConfirmationPage',
@@ -156,6 +128,7 @@ export default defineComponent({
         IonLabel,
         IonInput,
         IonToggle,
+        ExtrasList,
     },
     data() {
         return {
@@ -197,6 +170,9 @@ export default defineComponent({
         },
         roomID() {
             return this.roomStore.currentRoom?.id;
+        },
+        roomExtras() {
+            return this.roomStore.currentRoom?.extras;
         },
     },
     setup() {

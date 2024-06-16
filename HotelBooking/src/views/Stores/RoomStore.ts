@@ -27,6 +27,7 @@ export const useRoomStore = defineStore('roomStore', {
                 } else {
                     this.setDefaultRoom();
                 }
+                console.log(this.rooms);
             } catch (error) {
                 console.error('Error fetching rooms:', error);
                 this.setDefaultRoom();
