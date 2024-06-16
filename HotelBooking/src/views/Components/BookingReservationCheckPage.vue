@@ -34,12 +34,12 @@
                         <IonInput type="text" v-model="roomTitle" required disabled></IonInput>
                     </IonItem>
                     <IonItem class="form-item">
-                        <IonLabel position="floating">Departure Date</IonLabel>
-                        <IonInput type="date" v-model="departureDate" required disabled></IonInput>
-                    </IonItem>
-                    <IonItem class="form-item">
                         <IonLabel position="floating">Arrival Date</IonLabel>
                         <IonInput type="date" v-model="arrivalDate" required disabled></IonInput>
+                    </IonItem>
+                    <IonItem class="form-item">
+                        <IonLabel position="floating">Departure Date</IonLabel>
+                        <IonInput type="date" v-model="departureDate" required disabled></IonInput>
                     </IonItem>
                     <div class="reservation-button-container">
                         <ion-button type="submit" color="mygreen" class="reservation-button">Confirm reservation</ion-button>
@@ -122,7 +122,7 @@ export default defineComponent({
 
             await this.bookingStore.submitReservation();
 
-            if(this.bookingStore.response === 200)
+            if(this.bookingStore.response === 201)
             {
                 this.errorAlert("Buchung bestätigt", "Die Buchung wurde bestätigt");
             }

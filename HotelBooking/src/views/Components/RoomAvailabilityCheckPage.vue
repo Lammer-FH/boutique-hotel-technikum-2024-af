@@ -37,23 +37,6 @@ import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
 import { useBookingStore } from '../Stores/BookingStore'
 
-// interface BookingTime {
-//     id: number;
-//     startdate: string;
-//     enddate: string;
-// }
-
-// const errorAlert = async () => {
-//     const alert = await alertController.create({
-//       header: 'A Short Title Is Best',
-//       subHeader: 'A Sub Header Is Optional',
-//       message: 'A message should be a short, complete sentence.',
-//       buttons: ['Action'],
-//     });
-
-//     await alert.present();
-//   };
-
 export default defineComponent({
     name: 'RoomAvailabilityCheckPage',
     components: {
@@ -105,7 +88,7 @@ export default defineComponent({
                 }
                 else
                 {
-                    this.errorAlert("Room not available", "The room is already booked until "+bookingStore.roomAvailability?.nextTimeAvailable+" . Please adjust your timeframe.");
+                    this.errorAlert("Room not available", "The room is already booked until "+this.reformatDate(bookingStore.roomAvailability?.nextTimeAvailable as string)+" . Please adjust your timeframe.");
                 }
             }
             else
@@ -138,6 +121,9 @@ export default defineComponent({
                 return true
             }
         },
+        reformatDate(date: string) {
+            return date.substring(8,10)+"."+date.substring(5,7)+"."+date.substring(0,4)
+        }
     },
 });
 </script>
