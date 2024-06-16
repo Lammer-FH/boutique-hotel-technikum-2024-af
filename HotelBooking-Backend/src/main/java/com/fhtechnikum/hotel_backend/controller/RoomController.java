@@ -23,6 +23,7 @@ public class RoomController {
         return response;
     }
 
+    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping("/{roomId}")
     public ResponseEntity<Room> getRoomById(@PathVariable int roomId) {
         Optional<Room> room = service.getRoomById(roomId);
@@ -31,36 +32,3 @@ public class RoomController {
 }
 
 
-/*
-
-package com.someShop.Controller;
-import com.someShop.Model.ProductType;
-import com.someShop.Service.ProductDataService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
-
-@RestController
-public class ProductDataAdministration {
-    @Autowired
-    private ProductDataService service;
-
-    @GetMapping(path="")
-    public Iterable<ProductType> ascertainApiParameter(@RequestParam Map<String, String> action){
-        Iterable<ProductType> resultFromService = null;
-        switch(action.get("action")){
-            case "listTypes":
-                resultFromService = service.getAllProductTypes();
-                break;
-            case "listProductsByTypeId":
-                resultFromService = service.getProductsByProductType(Integer.parseInt(action.get("typeId")));
-                break;
-        }
-        return resultFromService;
-    }
-}
-
-*/

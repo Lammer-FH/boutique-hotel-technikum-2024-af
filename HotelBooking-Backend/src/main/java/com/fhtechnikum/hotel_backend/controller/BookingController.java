@@ -18,16 +18,19 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
+    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping(path = "")
     public Iterable<Booking> getAllBookings() {
         return bookingService.getAllBookings();
     }
 
+    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping(path = "/{bookingId}")
     public Optional<Booking> getBookingById(@PathVariable int bookingId) {
         return bookingService.getBookingById(bookingId);
     }
 
+    @CrossOrigin(origins = "http://localhost:8100")
     @PostMapping(path = "")
     public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
         return bookingService.insertBooking(booking)
@@ -35,6 +38,7 @@ public class BookingController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
+    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping(path = "/")
     public ResponseEntity<RoomAvailability> getRoomAvailability(
             @RequestParam int roomId,

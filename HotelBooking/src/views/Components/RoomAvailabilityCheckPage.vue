@@ -97,13 +97,17 @@ export default defineComponent({
             const bookingStore = useBookingStore();
             await bookingStore.checkAvailability(this.roomId as number, this.arrivalDate, this.departureDate);
 
-            if(bookingStore.response == 200)
+            if(bookingStore.response === 200)
             {
-                alert('Success');
-            }
-            else if(bookingStore.response == 404)
-            {
-                this.errorAlert("Room not available", "The room is already booked in this timeframe. Please try another timeframe.");
+                if(bookingStore.roomAvailability?.roomIsAvailable === true)
+                {
+                    alert("Success");
+                    //route
+                }
+                else
+                {
+                    this.errorAlert("Room not available", "The room is already booked until "+bookingStore.roomAvailability?.nextTimeAvailable+" . Please adjust your timeframe.");
+                }
             }
             else
             {
