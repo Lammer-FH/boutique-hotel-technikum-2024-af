@@ -11,6 +11,7 @@ interface Room {
 export const useRoomStore = defineStore('roomStore', {
     state: () => ({
         rooms: [] as Room[],
+        currentRoom: null as Room | null,
     }),
     actions: {
         async fetchRooms() {
@@ -41,5 +42,13 @@ export const useRoomStore = defineStore('roomStore', {
                 },
             ];
         },
+        setCurrentRoom(id: number) {
+            this.currentRoom = this.getRoomById(id) as Room;
+        },
     },
+    getters: {
+        getRoomById: (state) => (id: number) => {
+          return state.rooms.find(room => room.id === id);
+        },
+      },
 });
