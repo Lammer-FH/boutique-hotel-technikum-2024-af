@@ -124,7 +124,7 @@ export default defineComponent({
 
             if(this.bookingStore.response === 201)
             {
-                this.errorAlert("Buchung bestätigt", "Die Buchung wurde bestätigt");
+                this.$router.push({ name: 'BookingReservationConfirmation' });
             }
             else
             {

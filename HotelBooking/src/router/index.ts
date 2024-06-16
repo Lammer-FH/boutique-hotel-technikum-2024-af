@@ -7,6 +7,7 @@ import RoomOverviewPage from '../views/Components/RoomOverviewPage.vue'
 import RoomAvailabilityCheckPage from '../views/Components/RoomAvailabilityCheckPage.vue'
 import BookingReservationPage from '../views/Components/BookingReservationPage.vue'
 import BookingReservationCheckPage from '../views/Components/BookingReservationCheckPage.vue'
+import BookingReservationConfirmationPage from '../views/Components/BookingReservationConfirmationPage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -47,6 +48,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/booking-reservation-check/',
     name: 'BookingReservationCheck',
     component: BookingReservationCheckPage
+  },
+  {
+    path: '/booking-reservation-confirmation/',
+    name: 'BookingReservationConfirmation',
+    component: BookingReservationConfirmationPage
   },
 ]
 
