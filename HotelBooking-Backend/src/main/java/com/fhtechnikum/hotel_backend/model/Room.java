@@ -11,6 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Room {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ROOM_ID")
     private int roomId;
 

@@ -3,16 +3,10 @@ package com.fhtechnikum.hotel_backend.controller;
 import com.fhtechnikum.hotel_backend.model.Room;
 import com.fhtechnikum.hotel_backend.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/rooms")
@@ -29,9 +23,9 @@ public class RoomController {
         return response;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Room> getRoomById(@PathVariable Integer id) {
-        Optional<Room> room = service.getRoomById(id);
+    @GetMapping("/{roomId}")
+    public ResponseEntity<Room> getRoomById(@PathVariable int roomId) {
+        Optional<Room> room = service.getRoomById(roomId);
         return room.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
