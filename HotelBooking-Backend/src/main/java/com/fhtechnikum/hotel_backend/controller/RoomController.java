@@ -3,54 +3,31 @@ package com.fhtechnikum.hotel_backend.controller;
 import com.fhtechnikum.hotel_backend.model.Room;
 import com.fhtechnikum.hotel_backend.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/rooms")
 public class RoomController {
-/*
-    @GetMapping
-    public Map<String, String> getRooms() {
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Hello World");
-        return response;
-    }
-*/
     @Autowired
     private RoomService service;
 
     @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping(path = "")
-    public Map<String, Object> ascertainApiParameter(@RequestParam Map<String, String> action){
-        Iterable<Room> resultFromService = null;
-        resultFromService = service.getAllRooms();
+    public Map<String, Object> getAllRooms() {
+        Iterable<Room> resultFromService = service.getAllRooms();
         Map<String, Object> response = new HashMap<>();
         response.put("rooms", resultFromService);
         return response;
-        //return resultFromService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Room> getRoomById(@PathVariable Integer id) {
-        Optional<Room> room = service.getRoomById(id);
-        if (room.isPresent()) {
-            return ResponseEntity.ok(room.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/{roomId}")
+    public ResponseEntity<Room> getRoomById(@PathVariable int roomId) {
+        Optional<Room> room = service.getRoomById(roomId);
+        return room.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-
 }
 
 
