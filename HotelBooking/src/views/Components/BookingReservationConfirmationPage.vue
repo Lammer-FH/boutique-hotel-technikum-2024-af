@@ -58,7 +58,7 @@ import { useBookingStore } from '../Stores/BookingStore'
 import { useRoomStore } from '../Stores/RoomStore'
 
 export default defineComponent({
-    name: 'BookingReservationCheckPage',
+    name: 'BookingReservationConfirmationPage',
     components: {
         IonPage,
         IonHeader,
@@ -124,7 +124,7 @@ export default defineComponent({
 
             if(this.bookingStore.response === 200)
             {
-                this.$router.push({ name: 'BookingReservationConfirmation' });
+                this.errorAlert("Buchung bestätigt", "Die Buchung wurde bestätigt");
             }
             else
             {
