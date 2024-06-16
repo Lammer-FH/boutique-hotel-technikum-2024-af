@@ -19,10 +19,10 @@ export const useRoomStore = defineStore('roomStore', {
                 const response = await axios.get('http://127.0.0.1:8080/api/v1/rooms');
                 if (response.data && response.data.rooms && response.data.rooms.length > 0) {
                     this.rooms = response.data.rooms.map((room: any) => ({
-                        id: room.roomid,
-                        title: room.title,
-                        description: room.description,
-                        extras: room.extras || [],
+                        id: room.roomId,
+                        title: room.roomTitle,
+                        description: room.roomDescription,
+                        extras: room.roomExtras.map((extra: any) => extra.extraName),
                     }));
                 } else {
                     this.setDefaultRoom();

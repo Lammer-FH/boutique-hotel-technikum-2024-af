@@ -97,13 +97,20 @@ export default defineComponent({
             const bookingStore = useBookingStore();
             await bookingStore.checkAvailability(this.roomId as number, this.arrivalDate, this.departureDate);
 
-            if(bookingStore.response == 200)
+            if(bookingStore.response === 200)
             {
-                this.$router.push({ name: 'BookingReservation', params: { roomId: this.roomId } });
+                if(bookingStore.roomAvailability?.roomIsAvailable === true)
+                {
+                    this.$router.push({ name: 'BookingReservation', params: { roomId: this.roomId } });
+                }
+                else
+                {
+                    this.errorAlert("Room not available", "The room is already booked until "+bookingStore.roomAvailability?.nextTimeAvailable+" . Please adjust your timeframe.");
+                }
             }
             else
             {
-                this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
+                this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com.");
             }
         },
         async errorAlert(header: string, message: string) {
@@ -118,12 +125,12 @@ export default defineComponent({
         checkDateOrder() {
             if(new Date(this.arrivalDate).getTime() > new Date(this.departureDate).getTime())
             {
-                this.errorAlert("Date error", "The deperature can not occur before the arrival. Please correct your input");
+                this.errorAlert("Date error", "The deperature can not occur before the arrival. Please correct your input.");
                 return false;
             }
             else if(new Date(this.arrivalDate).getTime() == new Date(this.departureDate).getTime())
             {
-                this.errorAlert("Date error", "The deperature can not be on the same day as the arrival. Please correct your input");
+                this.errorAlert("Date error", "The deperature can not be on the same day as the arrival. Please correct your input.");
                 return false;
             }
             else
