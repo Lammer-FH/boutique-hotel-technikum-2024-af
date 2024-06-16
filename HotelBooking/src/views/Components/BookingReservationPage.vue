@@ -97,7 +97,7 @@ export default defineComponent({
             const bookingStore = useBookingStore();
             await bookingStore.setReservation(this.name, this.surname, this.email, this.breakfast);
 
-            this.$router.push({ name: 'BookingReservationConfirmation' });
+            this.$router.push({ name: 'BookingReservationCheck' });
         },
         async errorAlert(header: string, message: string) {
             const alert = await alertController.create({

@@ -6,7 +6,7 @@ import ImprintPage from '../views/Components/ImprintPage.vue'
 import RoomOverviewPage from '../views/Components/RoomOverviewPage.vue'
 import RoomAvailabilityCheckPage from '../views/Components/RoomAvailabilityCheckPage.vue'
 import BookingReservationPage from '../views/Components/BookingReservationPage.vue'
-import BookingReservationConfirmationPage from '../views/Components/BookingReservationConfirmationPage.vue'
+import BookingReservationCheckPage from '../views/Components/BookingReservationCheckPage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -44,9 +44,9 @@ const routes: Array<RouteRecordRaw> = [
     component: BookingReservationPage
   },
   {
-    path: '/booking-reservation-confirmation/',
-    name: 'BookingReservationConfirmation',
-    component: BookingReservationConfirmationPage
+    path: '/booking-reservation-check/',
+    name: 'BookingReservationCheck',
+    component: BookingReservationCheckPage
   },
 ]
 

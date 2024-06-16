@@ -5,12 +5,12 @@
                 <ion-button @click="navigateBack">
                     <ion-icon slot="icon-only" :icon="arrowBackOutline"></ion-icon>
                 </ion-button>
-                <IonTitle slot="end">Reservation Confirmation</IonTitle>
+                <IonTitle slot="end">Reservation Check</IonTitle>
             </IonToolbar>
         </IonHeader>
         <IonContent class="ion-padding">
             <div class="form-container">
-                <h1 class="page-title">Confirm Reservation data?</h1>
+                <h1 class="page-title">Check Reservation data?</h1>
                 <form @submit.prevent="confirmReservation" class="reservation-form">
                     <IonItem class="form-item">
                         <IonLabel position="floating">Name</IonLabel>
@@ -58,7 +58,7 @@ import { useBookingStore } from '../Stores/BookingStore'
 import { useRoomStore } from '../Stores/RoomStore'
 
 export default defineComponent({
-    name: 'BookingReservationConfirmationPage',
+    name: 'BookingReservationCheckPage',
     components: {
         IonPage,
         IonHeader,
