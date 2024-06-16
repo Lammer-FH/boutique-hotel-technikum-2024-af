@@ -4,6 +4,7 @@ import com.fhtechnikum.hotel_backend.model.Booking;
 import com.fhtechnikum.hotel_backend.model.RoomAvailability;
 import com.fhtechnikum.hotel_backend.repository.BookingRepository;
 import com.fhtechnikum.hotel_backend.repository.GuestRepository;
+import com.fhtechnikum.hotel_backend.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class BookingService {
     private BookingRepository bookingRepository;
     @Autowired
     private GuestRepository guestRepository;
+    @Autowired
+    private RoomRepository roomRepository;
 
     public Iterable<Booking> getAllBookings() {
         return bookingRepository.findAll();
@@ -30,9 +33,25 @@ public class BookingService {
         booking.setBookingId(0);
         booking.getGuest().setGuestId(0);
 
+        var targetRoom = roomRepository.findById(booking.getRoom().getRoomId());
+
+        if (targetRoom.isEmpty()) {
+            System.out.println("Tried to book non existing room: " + booking.getRoom().getRoomId());
+            return Optional.empty();
+        }
+
+        var roomAvailability = getRoomAvailability(targetRoom.get().getRoomId(), booking.getBookingStartTime(), booking.getBookingEndTime());
+
+        if (!roomAvailability.isRoomIsAvailable()) {
+            System.out.println("Tried to book unavailable room: " + targetRoom.get().getRoomId());
+            return Optional.empty();
+        }
+
         var existingGuest = guestRepository.findByGuestEmail(booking.getGuest().getGuestEmail());
 
-        if (existingGuest.isEmpty()) {
+        if (existingGuest.isPresent()) {
+            booking.setGuest(existingGuest.get());
+        } else {
             guestRepository.save(booking.getGuest());
         }
 
@@ -48,7 +67,7 @@ public class BookingService {
 
     public RoomAvailability getRoomAvailability(int roomId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         var room = bookingRepository.findByOverlappingDates(roomId, startDateTime, endDateTime);
-        return room.map((r) -> new RoomAvailability(false, r.getEndTime()))
+        return room.map((r) -> new RoomAvailability(false, r.getBookingEndTime()))
                 .orElseGet(() -> new RoomAvailability(true, null));
     }
 }
