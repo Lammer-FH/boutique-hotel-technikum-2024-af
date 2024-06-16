@@ -14,30 +14,46 @@ interface Reservation {
     breakfast: boolean;
 }
 
+interface RoomAvailability {
+    roomIsAvailable: boolean;
+    nextTimeAvailable: string;
+}
+
 export const useBookingStore = defineStore('bookingStore', {
     state: () => ({
         response: null as number | null,
         bookingTime: null as BookingTime | null,
         reservation: null as Reservation | null,
+        roomAvailability: null as RoomAvailability | null,
     }),
     actions: {
         async checkAvailability(id: number, arrivalDate: string, departureDate: string) {
             try {
-                const response = await axios.post('http://127.0.0.1:8080/api/v1/bookings', {
-                    id,
-                    arrivalDate,
-                    departureDate
+                alert(id);
+                const response = await axios.get('http://127.0.0.1:8080/api/v1/bookings/', {
+                    params: {
+                        roomId: id,
+                        startDate: arrivalDate+"T00:00:00.000Z", //add time for backend
+                        endDate: departureDate+"T00:00:00.000Z"  //add time for backend
+                    }
                 });
                 
                 this.response = response.status;
+                this.roomAvailability = {
+                    roomIsAvailable: response.data.roomIsAvailable,
+                    nextTimeAvailable: response.data.nextTimeAvailable,
+                };
 
-                //implement successfull check later
-                this.bookingTime = 
+                if(this.roomAvailability.roomIsAvailable === true)
                 {
-                    id: id,
-                    arrivalDate: arrivalDate,
-                    departureDate: departureDate
+                    this.bookingTime = 
+                    {
+                        id: id,
+                        arrivalDate: arrivalDate,
+                        departureDate: departureDate
+                    }
                 }
+
 
             } catch (error) {
                 console.error('Error checking availability:', error);
@@ -56,20 +72,24 @@ export const useBookingStore = defineStore('bookingStore', {
         async submitReservation() {
             try {
                 const response = await axios.post('http://127.0.0.1:8080/api/v1/bookings', {
-                    id: this.bookingTime?.id,
-                    arrivalDate: this.bookingTime?.arrivalDate,
-                    departureDate: this.bookingTime?.departureDate,
-                    name: this.reservation?.name,
-                    surname: this.reservation?.surname,
-                    email: this.reservation?.email,
-                    breakfast: this.reservation?.breakfast,
+                    room: {
+                        roomId: this.bookingTime?.id
+                    },
+                    guest: {
+                        guestEmail: this.reservation?.email,
+                        guestName: this.reservation?.name,
+                        guestSurname: this.reservation?.surname,
+                    },
+                    bookingStartTime: this.bookingTime?.arrivalDate+"T00:00:00.000Z", //add time for backend,
+                    bookingEndTime: this.bookingTime?.departureDate+"T00:00:00.000Z", //add time for backend,
+                    breakfast: this.reservation?.breakfast
                 });
                 
                 this.response = response.status;
 
             } catch (error) {
                 console.error('Error checking availability:', error);
-                //this.reponse already null
+                this.response = null;
             }
         },
     },
