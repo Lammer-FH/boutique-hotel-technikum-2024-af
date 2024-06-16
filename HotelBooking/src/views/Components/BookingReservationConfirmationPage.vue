@@ -11,95 +11,83 @@
         <IonContent class="ion-padding">
             <h1>Your stay</h1>
             <ion-row style="border-bottom: ridge;">
-                <ion-col col-4>
+                <ion-col size="4">
                 <ion-label >Room</ion-label>
                 </ion-col>
-                <ion-col col-4>
+                <ion-col size="8">
                 <ion-label>{{roomTitle}}</ion-label>
                 </ion-col>
             </ion-row>
             <ion-row style="border-bottom: ridge;">
-                <ion-col col-4>
+                <ion-col size="4">
                 <ion-label >Description</ion-label>
                 </ion-col>
-                <ion-col col-4>
+                <ion-col size="8">
                 <ion-label>{{roomDescription}}</ion-label>
                 </ion-col>
             </ion-row>
             <ion-row style="border-bottom: ridge;">
-                <ion-col col-4>
-                <ion-label >Image</ion-label>
+                <ion-col size="4">
+                <ion-label >Details</ion-label>
                 </ion-col>
-                <ion-col col-4>
+                <ion-col size="4">
                 <ion-label><img :src="getImagePath(roomID)" alt="Room Image" class="room-image" /></ion-label>
                 </ion-col>
+                <ion-col size="4">
+                <ion-label><ExtrasList :extras="['tv','tv','noise protection']" /></ion-label>
+                <!-- <ion-label><ExtrasList :extras=roomExtras /></ion-label> -->
+                </ion-col>
             </ion-row>
-            <ion-row style="border-bottom: ridge;">
-                <ion-col col-4>
+            <!-- <ion-row style="border-bottom: ridge;">
+                <ion-col size="4">
                 <ion-label >Extras</ion-label>
                 </ion-col>
-                <ion-col col-4>
+                <ion-col size="4">        
                 <ion-label><ExtrasList :extras=roomExtras /></ion-label>
                 </ion-col>
-            </ion-row>
+            </ion-row> -->
             <ion-row style="border-bottom: ridge;">
-                <ion-col col-4>
+                <ion-col size="4">
                 <ion-label >Timeframe</ion-label>
                 </ion-col>
-                <ion-col col-4>
+                <ion-col size="8">
                 <ion-label>{{arrivalDate}} till {{ departureDate }}</ion-label>
                 </ion-col>
             </ion-row>
             <ion-row>
-                <ion-col col-4>
+                <ion-col size="4">
                 <ion-label >Breakfast</ion-label>
                 </ion-col>
-                <ion-col col-4>
+                <ion-col size="8">
                 <ion-label>{{breakfastStatus}}</ion-label>
                 </ion-col>
             </ion-row>
             <br>
             <h1>Your data</h1>
             <ion-row style="border-bottom: ridge;">
-                <ion-col col-4>
-                <ion-label >Name</ion-label>
+                <ion-col size="4">
+                <ion-label >Full Name</ion-label>
                 </ion-col>
-                <ion-col col-4>
-                <ion-label>{{name}}</ion-label>
-                </ion-col>
-            </ion-row>
-            <ion-row style="border-bottom: ridge;">
-                <ion-col col-4>
-                <ion-label >Surname</ion-label>
-                </ion-col>
-                <ion-col col-4>
-                <ion-label>{{surname}}</ion-label>
+                <ion-col size="8">
+                <ion-label>{{name}} {{ surname }}</ion-label>
                 </ion-col>
             </ion-row>
             <ion-row>
-                <ion-col col-4>
+                <ion-col size="4">
                 <ion-label >Email</ion-label>
                 </ion-col>
-                <ion-col col-4>
+                <ion-col size="8">
                 <ion-label>{{email}}</ion-label>
                 </ion-col>
             </ion-row>
             <br>
             <h1>Contact us</h1>
             <ion-row style="border-bottom: ridge;">
-                <ion-col col-4>
-                <ion-label >Our email adress</ion-label>
+                <ion-col size="4">
+                <ion-label >Email / Number</ion-label>
                 </ion-col>
-                <ion-col col-4>
-                <ion-label >PLACEHOLDER EMAIL</ion-label>
-                </ion-col>
-            </ion-row>
-            <ion-row >
-                <ion-col col-4>
-                <ion-label >Our phone number</ion-label>
-                </ion-col>
-                <ion-col col-4>
-                <ion-label >PLACEHOLDER PHONE</ion-label>
+                <ion-col size="8">
+                <ion-label >PLACEHOLDER EMAIL / PLACEHOLDER Number</ion-label>
                 </ion-col>
             </ion-row>
         </IonContent>
