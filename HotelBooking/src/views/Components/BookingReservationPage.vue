@@ -201,7 +201,7 @@ ion-button {
 }
 
 ion-toggle {
-  zoom: 1.5;
+  zoom: 1.2;
 }
 
 </style>

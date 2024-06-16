@@ -34,24 +34,15 @@
                 <ion-label><img :src="getImagePath(roomID)" alt="Room Image" class="room-image" /></ion-label>
                 </ion-col>
                 <ion-col size="4">
-                <ion-label><ExtrasList :extras="['tv','tv','noise protection']" /></ion-label>
-                <!-- <ion-label><ExtrasList :extras=roomExtras /></ion-label> -->
-                </ion-col>
-            </ion-row>
-            <!-- <ion-row style="border-bottom: ridge;">
-                <ion-col size="4">
-                <ion-label >Extras</ion-label>
-                </ion-col>
-                <ion-col size="4">        
                 <ion-label><ExtrasList :extras=roomExtras /></ion-label>
                 </ion-col>
-            </ion-row> -->
+            </ion-row>
             <ion-row style="border-bottom: ridge;">
                 <ion-col size="4">
                 <ion-label >Timeframe</ion-label>
                 </ion-col>
                 <ion-col size="8">
-                <ion-label>{{arrivalDate}} till {{ departureDate }}</ion-label>
+                <ion-label>{{reformatDate(arrivalDate)}} till {{ reformatDate(departureDate) }}</ion-label>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -87,7 +78,7 @@
                 <ion-label >Email / Number</ion-label>
                 </ion-col>
                 <ion-col size="8">
-                <ion-label >PLACEHOLDER EMAIL / PLACEHOLDER Number</ion-label>
+                <ion-label >info@luxorahotel.com / +123-456-7890</ion-label>
                 </ion-col>
             </ion-row>
         </IonContent>
@@ -175,20 +166,9 @@ export default defineComponent({
         getImagePath(index: number) {
             return `/Rooms/room${index}.jpg`;
         },
-        // async confirmReservation() {
-
-
-        //     await this.bookingStore.submitReservation();
-
-        //     if(this.bookingStore.response === 200)
-        //     {
-        //         this.errorAlert("Buchung bestätigt", "Die Buchung wurde bestätigt");
-        //     }
-        //     else
-        //     {
-        //         this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
-        //     }
-        // },
+        reformatDate(date: string) {
+            return date.substring(8,10)+"."+date.substring(5,7)+"."+date.substring(0,4)
+        }
         // async errorAlert(header: string, message: string) {
         //     const alert = await alertController.create({
         //     header: header,
