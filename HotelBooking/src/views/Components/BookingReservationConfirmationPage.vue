@@ -5,11 +5,11 @@
                 <ion-button @click="navigateBack">
                     <ion-icon slot="icon-only" :icon="arrowBackOutline"></ion-icon>
                 </ion-button>
-                <IonTitle slot="end">Reservation Check</IonTitle>
+                <IonTitle slot="end">Reservation Confirmation</IonTitle>
             </IonToolbar>
         </IonHeader>
         <IonContent class="ion-padding">
-            <div class="form-container">
+            <!-- <div class="form-container">
                 <h1 class="page-title">Check Reservation data?</h1>
                 <form @submit.prevent="confirmReservation" class="reservation-form">
                     <IonItem class="form-item">
@@ -45,7 +45,92 @@
                         <ion-button type="submit" color="mygreen" class="reservation-button">Confirm reservation</ion-button>
                     </div>
                 </form>
-            </div>
+            </div> -->
+            <h1>Your stay</h1>
+            <ion-row style="border-bottom: ridge;">
+                <ion-col col-4>
+                <ion-label >Room</ion-label>
+                </ion-col>
+                <ion-col col-4>
+                <ion-label>{{roomTitle}}</ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row style="border-bottom: ridge;">
+                <ion-col col-4>
+                <ion-label >Description</ion-label>
+                </ion-col>
+                <ion-col col-4>
+                <ion-label>{{roomDescription}}</ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row style="border-bottom: ridge;">
+                <ion-col col-4>
+                <ion-label >Image</ion-label>
+                </ion-col>
+                <ion-col col-4>
+                <ion-label><img :src="getImagePath(roomID)" alt="Room Image" class="room-image" /></ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row style="border-bottom: ridge;">
+                <ion-col col-4>
+                <ion-label >Timeframe</ion-label>
+                </ion-col>
+                <ion-col col-4>
+                <ion-label>{{arrivalDate}} till {{ departureDate }}</ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-4>
+                <ion-label >Breakfast</ion-label>
+                </ion-col>
+                <ion-col col-4>
+                <ion-label>{{breakfastStatus}}</ion-label>
+                </ion-col>
+            </ion-row>
+            <br>
+            <h1>Your data</h1>
+            <ion-row style="border-bottom: ridge;">
+                <ion-col col-4>
+                <ion-label >Name</ion-label>
+                </ion-col>
+                <ion-col col-4>
+                <ion-label>{{name}}</ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row style="border-bottom: ridge;">
+                <ion-col col-4>
+                <ion-label >Surname</ion-label>
+                </ion-col>
+                <ion-col col-4>
+                <ion-label>{{surname}}</ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-4>
+                <ion-label >Email</ion-label>
+                </ion-col>
+                <ion-col col-4>
+                <ion-label>{{email}}</ion-label>
+                </ion-col>
+            </ion-row>
+            <br>
+            <h1>Contact us</h1>
+            <ion-row style="border-bottom: ridge;">
+                <ion-col col-4>
+                <ion-label >Our email adress</ion-label>
+                </ion-col>
+                <ion-col col-4>
+                <ion-label >PLACEHOLDER EMAIL</ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row >
+                <ion-col col-4>
+                <ion-label >Our phone number</ion-label>
+                </ion-col>
+                <ion-col col-4>
+                <ion-label >PLACEHOLDER PHONE</ion-label>
+                </ion-col>
+            </ion-row>
         </IonContent>
     </ion-page>
 </template>
@@ -107,6 +192,12 @@ export default defineComponent({
         departureDate() {
             return this.bookingStore.bookingTime?.departureDate;
         },
+        roomDescription() {
+            return this.roomStore.currentRoom?.description;
+        },
+        roomID() {
+            return this.roomStore.currentRoom?.id;
+        },
     },
     setup() {
         return {
@@ -117,29 +208,32 @@ export default defineComponent({
         navigateBack() {
             this.$router.back();
         },
-        async confirmReservation() {
-
-
-            await this.bookingStore.submitReservation();
-
-            if(this.bookingStore.response === 200)
-            {
-                this.errorAlert("Buchung bestätigt", "Die Buchung wurde bestätigt");
-            }
-            else
-            {
-                this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
-            }
+        getImagePath(index: number) {
+            return `/Rooms/room${index}.jpg`;
         },
-        async errorAlert(header: string, message: string) {
-            const alert = await alertController.create({
-            header: header,
-            message: message,
-            buttons: ['OK'],
-            });
+        // async confirmReservation() {
 
-            await alert.present();
-        },
+
+        //     await this.bookingStore.submitReservation();
+
+        //     if(this.bookingStore.response === 200)
+        //     {
+        //         this.errorAlert("Buchung bestätigt", "Die Buchung wurde bestätigt");
+        //     }
+        //     else
+        //     {
+        //         this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
+        //     }
+        // },
+        // async errorAlert(header: string, message: string) {
+        //     const alert = await alertController.create({
+        //     header: header,
+        //     message: message,
+        //     buttons: ['OK'],
+        //     });
+
+        //     await alert.present();
+        // },
     },
 });
 </script>
@@ -225,6 +319,11 @@ ion-button {
 
 ion-toggle {
   zoom: 1.2;
+}
+
+.room-image {
+    width: 200px;
+    height: auto;
 }
 
 </style>
