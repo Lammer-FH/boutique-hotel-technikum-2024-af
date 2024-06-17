@@ -66,8 +66,11 @@ public class BookingService {
     }
 
     public RoomAvailability getRoomAvailability(int roomId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        var room = bookingRepository.findByOverlappingDates(roomId, startDateTime, endDateTime);
-        return room.map((r) -> new RoomAvailability(false, r.getBookingEndTime()))
-                .orElseGet(() -> new RoomAvailability(true, null));
+        var rooms = bookingRepository.findByOverlappingDates(roomId, startDateTime, endDateTime);
+
+        if (rooms.iterator().hasNext())
+            return new RoomAvailability(false, rooms.iterator().next().getBookingEndTime());
+
+        return new RoomAvailability(true, null);
     }
 }
