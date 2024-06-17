@@ -82,6 +82,10 @@
                 <ion-col size="8">
                     <ion-label>info@luxorahotel.com / +123-456-7890</ion-label>
                 </ion-col>
+                <ion-col size="12">
+                    <h1>How to reach us:</h1>
+                    <img src="/DriveImage/drive.jpg" alt="Drive Image" class="drive-image" />
+                </ion-col>
             </ion-row>
         </IonContent>
     </ion-page>
@@ -258,5 +262,11 @@ ion-toggle {
 .room-image {
     width: 200px;
     height: auto;
+}
+
+.drive-image {
+    width: 350px;
+    height: auto;
+    margin-top: 10px;
 }
 </style>
