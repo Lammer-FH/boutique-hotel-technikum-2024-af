@@ -160,7 +160,7 @@ export default defineComponent({
     },
     methods: {
         navigateBack() {
-            this.$router.back();
+            this.$router.push('/');
         },
         getImagePath(index: number) {
             return `/Rooms/room${index}.jpg`;
