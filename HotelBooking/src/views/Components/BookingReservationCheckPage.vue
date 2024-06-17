@@ -42,7 +42,8 @@
                         <IonInput type="date" v-model="departureDate" required disabled></IonInput>
                     </IonItem>
                     <div class="reservation-button-container">
-                        <ion-button type="submit" color="mygreen" class="reservation-button">Confirm reservation</ion-button>
+                        <ion-button type="submit" color="mygreen" class="reservation-button">Confirm
+                            reservation</ion-button>
                     </div>
                 </form>
             </div>
@@ -122,20 +123,18 @@ export default defineComponent({
 
             await this.bookingStore.submitReservation();
 
-            if(this.bookingStore.response === 201)
-            {
+            if (this.bookingStore.response === 201) {
                 this.$router.push({ name: 'BookingReservationConfirmation' });
             }
-            else
-            {
+            else {
                 this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
             }
         },
         async errorAlert(header: string, message: string) {
             const alert = await alertController.create({
-            header: header,
-            message: message,
-            buttons: ['OK'],
+                header: header,
+                message: message,
+                buttons: ['OK'],
             });
 
             await alert.present();
@@ -224,7 +223,6 @@ ion-button {
 }
 
 ion-toggle {
-  zoom: 1.2;
+    zoom: 1.2;
 }
-
 </style>

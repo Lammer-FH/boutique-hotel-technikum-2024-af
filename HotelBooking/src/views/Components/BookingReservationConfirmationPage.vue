@@ -12,73 +12,75 @@
             <h1>Your stay</h1>
             <ion-row style="border-bottom: ridge;">
                 <ion-col size="4">
-                <ion-label >Room</ion-label>
+                    <ion-label>Room</ion-label>
                 </ion-col>
                 <ion-col size="8">
-                <ion-label>{{roomTitle}}</ion-label>
+                    <ion-label>{{ roomTitle }}</ion-label>
                 </ion-col>
             </ion-row>
             <ion-row style="border-bottom: ridge;">
                 <ion-col size="4">
-                <ion-label >Description</ion-label>
+                    <ion-label>Description</ion-label>
                 </ion-col>
                 <ion-col size="8">
-                <ion-label>{{roomDescription}}</ion-label>
+                    <ion-label>{{ roomDescription }}</ion-label>
                 </ion-col>
             </ion-row>
             <ion-row style="border-bottom: ridge;">
                 <ion-col size="4">
-                <ion-label >Details</ion-label>
+                    <ion-label>Details</ion-label>
                 </ion-col>
                 <ion-col size="4">
-                <ion-label><img :src="getImagePath(roomID)" alt="Room Image" class="room-image" /></ion-label>
+                    <ion-label><img :src="getImagePath(roomID)" alt="Room Image" class="room-image" /></ion-label>
                 </ion-col>
                 <ion-col size="4">
-                <ion-label><ExtrasList :extras=roomExtras /></ion-label>
+                    <ion-label>
+                        <ExtrasList :extras=roomExtras />
+                    </ion-label>
                 </ion-col>
             </ion-row>
             <ion-row style="border-bottom: ridge;">
                 <ion-col size="4">
-                <ion-label >Timeframe</ion-label>
+                    <ion-label>Timeframe</ion-label>
                 </ion-col>
                 <ion-col size="8">
-                <ion-label>{{reformatDate(arrivalDate)}} till {{ reformatDate(departureDate) }}</ion-label>
+                    <ion-label>{{ reformatDate(arrivalDate) }} till {{ reformatDate(departureDate) }}</ion-label>
                 </ion-col>
             </ion-row>
             <ion-row>
                 <ion-col size="4">
-                <ion-label >Breakfast</ion-label>
+                    <ion-label>Breakfast</ion-label>
                 </ion-col>
                 <ion-col size="8">
-                <ion-label>{{breakfastStatus}}</ion-label>
+                    <ion-label>{{ breakfastStatus }}</ion-label>
                 </ion-col>
             </ion-row>
             <br>
             <h1>Your data</h1>
             <ion-row style="border-bottom: ridge;">
                 <ion-col size="4">
-                <ion-label >Full Name</ion-label>
+                    <ion-label>Full Name</ion-label>
                 </ion-col>
                 <ion-col size="8">
-                <ion-label>{{name}} {{ surname }}</ion-label>
+                    <ion-label>{{ name }} {{ surname }}</ion-label>
                 </ion-col>
             </ion-row>
             <ion-row>
                 <ion-col size="4">
-                <ion-label >Email</ion-label>
+                    <ion-label>Email</ion-label>
                 </ion-col>
                 <ion-col size="8">
-                <ion-label>{{email}}</ion-label>
+                    <ion-label>{{ email }}</ion-label>
                 </ion-col>
             </ion-row>
             <br>
             <h1>Contact us</h1>
             <ion-row style="border-bottom: ridge;">
                 <ion-col size="4">
-                <ion-label >Email / Number</ion-label>
+                    <ion-label>Email / Number</ion-label>
                 </ion-col>
                 <ion-col size="8">
-                <ion-label >info@luxorahotel.com / +123-456-7890</ion-label>
+                    <ion-label>info@luxorahotel.com / +123-456-7890</ion-label>
                 </ion-col>
             </ion-row>
         </IonContent>
@@ -86,7 +88,7 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItem, IonLabel, IonInput, alertController, IonToggle } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonLabel } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import { useBookingStore } from '../Stores/BookingStore'
@@ -103,10 +105,7 @@ export default defineComponent({
         IonContent,
         IonButton,
         IonIcon,
-        IonItem,
         IonLabel,
-        IonInput,
-        IonToggle,
         ExtrasList,
     },
     data() {
@@ -167,17 +166,8 @@ export default defineComponent({
             return `/Rooms/room${index}.jpg`;
         },
         reformatDate(date: string) {
-            return date.substring(8,10)+"."+date.substring(5,7)+"."+date.substring(0,4)
+            return date.substring(8, 10) + "." + date.substring(5, 7) + "." + date.substring(0, 4)
         }
-        // async errorAlert(header: string, message: string) {
-        //     const alert = await alertController.create({
-        //     header: header,
-        //     message: message,
-        //     buttons: ['OK'],
-        //     });
-
-        //     await alert.present();
-        // },
     },
 });
 </script>
@@ -262,12 +252,11 @@ ion-button {
 }
 
 ion-toggle {
-  zoom: 1.2;
+    zoom: 1.2;
 }
 
 .room-image {
     width: 200px;
     height: auto;
 }
-
 </style>

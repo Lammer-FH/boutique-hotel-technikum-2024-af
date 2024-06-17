@@ -34,7 +34,8 @@
                         <IonLabel>{{ breakfastStatus }}</IonLabel>
                     </IonItem>
                     <div class="reservation-button-container">
-                        <ion-button type="submit" color="mygreen" class="reservation-button">Submit reservation</ion-button>
+                        <ion-button type="submit" color="mygreen" class="reservation-button">Submit
+                            reservation</ion-button>
                     </div>
                 </form>
             </div>
@@ -89,32 +90,26 @@ export default defineComponent({
             this.$router.back();
         },
         async saveReservation() {
-            if(!this.checkEmail())
-            {
+            if (!this.checkEmail()) {
                 return;
             }
-
             const bookingStore = useBookingStore();
-            await bookingStore.setReservation(this.name, this.surname, this.email, this.breakfast);
-
+            bookingStore.setReservation(this.name, this.surname, this.email, this.breakfast);
             this.$router.push({ name: 'BookingReservationCheck' });
         },
         async errorAlert(header: string, message: string) {
             const alert = await alertController.create({
-            header: header,
-            message: message,
-            buttons: ['OK'],
+                header: header,
+                message: message,
+                buttons: ['OK'],
             });
-
             await alert.present();
         },
         checkEmail() {
-            if(this.email !== this.confirmEmail)
-            {
+            if (this.email !== this.confirmEmail) {
                 this.errorAlert("Email error", "The emails do not match. Please correct your input and try again.");
                 return false;
             }
-
             return true;
         },
     },
@@ -201,7 +196,6 @@ ion-button {
 }
 
 ion-toggle {
-  zoom: 1.2;
+    zoom: 1.2;
 }
-
 </style>
