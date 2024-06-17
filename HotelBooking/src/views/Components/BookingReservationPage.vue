@@ -49,7 +49,6 @@ import { arrowBackOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import { useBookingStore } from '../Stores/BookingStore'
 
-
 export default defineComponent({
     name: 'BookingReservationPage',
     components: {

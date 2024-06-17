@@ -119,10 +119,7 @@ export default defineComponent({
             this.$router.back();
         },
         async confirmReservation() {
-
-
             await this.bookingStore.submitReservation();
-
             if (this.bookingStore.response === 201) {
                 this.$router.push({ name: 'BookingReservationConfirmation' });
             }
