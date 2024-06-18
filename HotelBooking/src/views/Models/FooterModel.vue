@@ -12,7 +12,15 @@
 </template>
 
 <script lang="ts">
+import { IonFooter, IonToolbar, IonButton, IonButtons } from '@ionic/vue';
+
 export default {
-    name: 'FooterPage'
+    name: 'FooterPage',
+    components: {
+        IonFooter,
+        IonToolbar,
+        IonButton,
+        IonButtons
+    },
 };
 </script>
