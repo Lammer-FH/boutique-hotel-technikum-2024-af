@@ -13,11 +13,11 @@
                 <h1 class="page-title">Check Room Availability</h1>
                 <form @submit.prevent="checkAvailability" class="availability-form">
                     <IonItem class="form-item">
-                        <IonLabel position="floating">Arrival Date</IonLabel>
+                        <IonLabel position="stacked">Arrival Date</IonLabel>
                         <IonInput type="date" v-model="arrivalDate" required></IonInput>
                     </IonItem>
                     <IonItem class="form-item">
-                        <IonLabel position="floating">Departure Date</IonLabel>
+                        <IonLabel position="stacked">Departure Date</IonLabel>
                         <IonInput type="date" v-model="departureDate" required></IonInput>
                     </IonItem>
                     <div class="availability-button-container">
