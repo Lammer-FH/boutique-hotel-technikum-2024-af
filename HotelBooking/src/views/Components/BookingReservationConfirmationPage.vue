@@ -197,7 +197,7 @@ export default {
 }
 
 .drive-image {
-    width: 350px;
+    width: 250px;
     height: auto;
     margin-top: 10px;
 }
