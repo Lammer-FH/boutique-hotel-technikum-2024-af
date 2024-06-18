@@ -82,11 +82,15 @@
                 <ion-col size="8">
                     <ion-label>info@luxorahotel.com / +123-456-7890</ion-label>
                 </ion-col>
-                <ion-col size="12">
-                    <h1>How to reach us:</h1>
-                    <div class="contact-info">
-                        <img src="/DriveImage/drive.png" alt="Drive Image" class="drive-image" />
-                        <div class="contact-details">
+                <ion-row style="border-bottom: ridge;">
+                    <ion-col size="6">
+                        <h1>How to reach us:</h1>
+                        <div class="contact-info">
+                            <img src="/DriveImage/drive.png" alt="Drive Image" class="drive-image" />
+                        </div>
+                    </ion-col>
+                    <ion-col size="6">
+                        <div>
                             <h2>Öffentliche Verkehrsmittel </h2>
                             <ul>
                                 <li>U-Bahn: U6 – Station Dresdner Straße</li>
@@ -95,8 +99,9 @@
                                 <li> Autobus: Linie 37A – Station Höchstädtplatz</li>
                             </ul>
                         </div>
-                    </div>
-                </ion-col>
+                    </ion-col>
+                </ion-row>
+                
             </ion-row>
         </IonContent>
     </ion-page>
