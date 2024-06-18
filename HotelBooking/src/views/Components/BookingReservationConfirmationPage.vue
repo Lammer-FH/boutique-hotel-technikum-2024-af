@@ -92,7 +92,7 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonLabel } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonLabel, IonRow, IonCol } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
 import { useBookingStore } from '../Stores/BookingStore'
 import { useRoomStore } from '../Stores/RoomStore'
@@ -109,6 +109,8 @@ export default {
         IonButton,
         IonIcon,
         IonLabel,
+        IonRow,
+        IonCol,
         ExtrasList,
     },
     data() {
