@@ -2,19 +2,19 @@
 <template>
     <form @submit.prevent="saveReservation" class="reservation-form">
         <IonItem class="form-item">
-            <IonLabel position="floating">Name</IonLabel>
+            <IonLabel position="stacked">Name</IonLabel>
             <IonInput type="text" v-model="name" required></IonInput>
         </IonItem>
         <IonItem class="form-item">
-            <IonLabel position="floating">Surname</IonLabel>
+            <IonLabel position="stacked">Surname</IonLabel>
             <IonInput type="text" v-model="surname" required></IonInput>
         </IonItem>
         <IonItem class="form-item">
-            <IonLabel position="floating">Email</IonLabel>
+            <IonLabel position="stacked">Email</IonLabel>
             <IonInput type="email" v-model="email" required></IonInput>
         </IonItem>
         <IonItem class="form-item">
-            <IonLabel position="floating">Confirm Email</IonLabel>
+            <IonLabel position="stacked">Confirm Email</IonLabel>
             <IonInput type="email" v-model="confirmEmail" required></IonInput>
         </IonItem>
         <IonItem>

@@ -1,15 +1,15 @@
 <template>
     <form @submit.prevent="confirmReservation" class="reservation-form">
         <IonItem class="form-item">
-            <IonLabel position="floating">Name</IonLabel>
+            <IonLabel position="stacked">Name</IonLabel>
             <IonInput type="text" v-model="name" required disabled></IonInput>
         </IonItem>
         <IonItem class="form-item">
-            <IonLabel position="floating">Surname</IonLabel>
+            <IonLabel position="stacked">Surname</IonLabel>
             <IonInput type="text" v-model="surname" required disabled></IonInput>
         </IonItem>
         <IonItem class="form-item">
-            <IonLabel position="floating">Email</IonLabel>
+            <IonLabel position="stacked">Email</IonLabel>
             <IonInput type="email" v-model="email" required disabled></IonInput>
         </IonItem>
         <IonItem>
@@ -18,15 +18,15 @@
             <IonLabel>{{ breakfastStatus }}</IonLabel>
         </IonItem>
         <IonItem class="form-item">
-            <IonLabel position="floating">Room</IonLabel>
+            <IonLabel position="stacked">Room</IonLabel>
             <IonInput type="text" v-model="roomTitle" required disabled></IonInput>
         </IonItem>
         <IonItem class="form-item">
-            <IonLabel position="floating">Arrival Date</IonLabel>
+            <IonLabel position="stacked">Arrival Date</IonLabel>
             <IonInput type="date" v-model="arrivalDate" required disabled></IonInput>
         </IonItem>
         <IonItem class="form-item">
-            <IonLabel position="floating">Departure Date</IonLabel>
+            <IonLabel position="stacked">Departure Date</IonLabel>
             <IonInput type="date" v-model="departureDate" required disabled></IonInput>
         </IonItem>
         <div class="reservation-button-container">
