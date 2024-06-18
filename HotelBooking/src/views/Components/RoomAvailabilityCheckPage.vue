@@ -33,11 +33,10 @@
 <script lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItem, IonLabel, IonInput, alertController } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
-import { defineComponent } from 'vue';
 import { useBookingStore } from '../Stores/BookingStore'
 import { useRoomStore } from '../Stores/RoomStore';
 
-export default defineComponent({
+export default {
     name: 'RoomAvailabilityCheckPage',
     components: {
         IonPage,
@@ -112,7 +111,7 @@ export default defineComponent({
             return date.substring(8, 10) + "." + date.substring(5, 7) + "." + date.substring(0, 4)
         }
     },
-});
+};
 </script>
 
 <style scoped>
