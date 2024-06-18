@@ -54,11 +54,10 @@
 <script lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItem, IonLabel, IonInput, alertController, IonToggle } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
-import { defineComponent } from 'vue';
-import { useBookingStore } from '../Stores/BookingStore'
-import { useRoomStore } from '../Stores/RoomStore'
+import { useBookingStore } from '../Stores/BookingStore';
+import { useRoomStore } from '../Stores/RoomStore';
 
-export default defineComponent({
+export default {
     name: 'BookingReservationCheckPage',
     components: {
         IonPage,
@@ -97,7 +96,7 @@ export default defineComponent({
             return this.bookingStore.reservation?.breakfast;
         },
         breakfastStatus() {
-            return this.breakfast === true ? "Yes" : "No";
+            return this.breakfast ? "Yes" : "No";
         },
         roomTitle() {
             return this.roomStore.currentRoom?.title;
@@ -109,11 +108,6 @@ export default defineComponent({
             return this.bookingStore.bookingTime?.departureDate;
         },
     },
-    setup() {
-        return {
-            arrowBackOutline,
-        };
-    },
     methods: {
         navigateBack() {
             this.$router.back();
@@ -122,9 +116,8 @@ export default defineComponent({
             await this.bookingStore.submitReservation();
             if (this.bookingStore.response === 201) {
                 this.$router.push({ name: 'BookingReservationConfirmation' });
-            }
-            else {
-                this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
+            } else {
+                this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us at info@luxorahotel.com");
             }
         },
         async errorAlert(header: string, message: string) {
@@ -133,11 +126,15 @@ export default defineComponent({
                 message: message,
                 buttons: ['OK'],
             });
-
             await alert.present();
         },
     },
-});
+    setup() {
+        return {
+            arrowBackOutline,
+        };
+    },
+};
 </script>
 
 <style scoped>

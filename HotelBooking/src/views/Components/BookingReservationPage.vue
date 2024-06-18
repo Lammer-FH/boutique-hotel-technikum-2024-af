@@ -46,10 +46,9 @@
 <script lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItem, IonLabel, IonInput, alertController, IonToggle } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
-import { defineComponent } from 'vue';
-import { useBookingStore } from '../Stores/BookingStore'
+import { useBookingStore } from '../Stores/BookingStore';
 
-export default defineComponent({
+export default {
     name: 'BookingReservationPage',
     components: {
         IonPage,
@@ -79,11 +78,6 @@ export default defineComponent({
             return this.breakfast === true ? "Yes" : "No";
         },
     },
-    setup() {
-        return {
-            arrowBackOutline,
-        };
-    },
     methods: {
         navigateBack() {
             this.$router.back();
@@ -112,7 +106,12 @@ export default defineComponent({
             return true;
         },
     },
-});
+    setup() {
+        return {
+            arrowBackOutline,
+        };
+    },
+};
 </script>
 
 <style scoped>
