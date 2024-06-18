@@ -84,7 +84,18 @@
                 </ion-col>
                 <ion-col size="12">
                     <h1>How to reach us:</h1>
-                    <img src="/DriveImage/drive.jpg" alt="Drive Image" class="drive-image" />
+                    <div class="contact-info">
+                        <img src="/DriveImage/drive.png" alt="Drive Image" class="drive-image" />
+                        <div class="contact-details">
+                            <h2>Öffentliche Verkehrsmittel </h2>
+                            <ul>
+                                <li>U-Bahn: U6 – Station Dresdner Straße</li>
+                                <li>Straßenbahnen: Linie 2, Linie 31, Linie 33 – Station Höchstädtplatz</li>
+                                <li> Schnellbahnen: Station Handelskai bzw. Traisengasse</li>
+                                <li> Autobus: Linie 37A – Station Höchstädtplatz</li>
+                            </ul>
+                        </div>
+                    </div>
                 </ion-col>
             </ion-row>
         </IonContent>
@@ -186,8 +197,17 @@ export default {
 }
 
 .drive-image {
-    width: 350px;
+    width: 250px;
     height: auto;
     margin-top: 10px;
+}
+
+.contact-info {
+    display: flex;
+    align-items: flex-start;
+}
+
+.contact-details {
+    margin-left: 20px;
 }
 </style>
