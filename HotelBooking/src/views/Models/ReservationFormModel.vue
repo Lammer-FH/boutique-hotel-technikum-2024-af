@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { IonItem, IonLabel, IonInput, IonToggle, alertController } from '@ionic/vue';
+import { IonItem, IonLabel, IonInput, IonToggle, alertController, IonButton } from '@ionic/vue';
 import { useBookingStore } from '../Stores/BookingStore';
 import { useRoomStore } from '../Stores/RoomStore';
 
@@ -47,6 +47,7 @@ export default {
         IonLabel,
         IonInput,
         IonToggle,
+        IonButton,
     },
     data() {
         return {

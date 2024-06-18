@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { IonItem, IonLabel, IonInput, IonToggle, alertController } from '@ionic/vue';
+import { IonItem, IonLabel, IonInput, IonToggle, alertController, IonButton } from '@ionic/vue';
 import { useBookingStore } from '../Stores/BookingStore';
 
 export default defineComponent({
@@ -40,6 +40,7 @@ export default defineComponent({
         IonLabel,
         IonInput,
         IonToggle,
+        IonButton
     },
     data() {
         return {
