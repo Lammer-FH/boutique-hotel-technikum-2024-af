@@ -12,7 +12,7 @@
         <IonContent class="ion-padding">
             <div class="form-container">
                 <h1 class="page-title">Reservation form</h1>
-                <ReservationForm />
+                <BookingReservationForm />
             </div>
         </IonContent>
     </ion-page>
@@ -21,7 +21,7 @@
 <script lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
-import ReservationForm from '../Models/BookingReservationFormModel.vue'
+import BookingReservationForm from '../Models/BookingReservationFormModel.vue'
 
 export default {
     name: 'BookingReservationPage',
@@ -33,7 +33,7 @@ export default {
         IonContent,
         IonButton,
         IonIcon,
-        ReservationForm,
+        BookingReservationForm,
     },
     methods: {
         navigateBack() {
