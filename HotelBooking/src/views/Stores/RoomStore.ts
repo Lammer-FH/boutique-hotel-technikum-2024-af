@@ -27,7 +27,6 @@ export const useRoomStore = defineStore('roomStore', {
                 } else {
                     this.setDefaultRoom();
                 }
-                console.log(this.rooms);
             } catch (error) {
                 console.error('Error fetching rooms:', error);
                 this.setDefaultRoom();
@@ -49,7 +48,7 @@ export const useRoomStore = defineStore('roomStore', {
     },
     getters: {
         getRoomById: (state) => (id: number) => {
-          return state.rooms.find(room => room.id === id);
+            return state.rooms.find(room => room.id === id);
         },
-      },
+    },
 });
