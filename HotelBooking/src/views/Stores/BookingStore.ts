@@ -32,40 +32,34 @@ export const useBookingStore = defineStore('bookingStore', {
                 const response = await axios.get('http://127.0.0.1:8080/api/v1/bookings/', {
                     params: {
                         roomId: id,
-                        startDate: arrivalDate+"T00:00:00.000Z", //add time for backend
-                        endDate: departureDate+"T00:00:00.000Z"  //add time for backend
+                        startDate: arrivalDate + "T00:00:00.000Z", //add time for backend
+                        endDate: departureDate + "T00:00:00.000Z"  //add time for backend
                     }
                 });
-                
                 this.response = response.status;
                 this.roomAvailability = {
                     roomIsAvailable: response.data.roomIsAvailable,
                     nextTimeAvailable: response.data.nextTimeAvailable,
                 };
-
-                if(this.roomAvailability.roomIsAvailable === true)
-                {
-                    this.bookingTime = 
+                if (this.roomAvailability.roomIsAvailable === true) {
+                    this.bookingTime =
                     {
                         id: id,
                         arrivalDate: arrivalDate,
                         departureDate: departureDate
                     }
                 }
-
-
             } catch (error) {
                 console.error('Error checking availability:', error);
-                //this.reponse already null
             }
         },
         setReservation(name: string, surname: string, email: string, breakfast: boolean) {
             this.reservation =
             {
-                    name: name,
-                    surname: surname,
-                    email: email,
-                    breakfast: breakfast
+                name: name,
+                surname: surname,
+                email: email,
+                breakfast: breakfast
             }
         },
         async submitReservation() {
@@ -79,13 +73,11 @@ export const useBookingStore = defineStore('bookingStore', {
                         guestName: this.reservation?.name,
                         guestSurname: this.reservation?.surname,
                     },
-                    bookingStartTime: this.bookingTime?.arrivalDate+"T00:00:00.000Z", //add time for backend,
-                    bookingEndTime: this.bookingTime?.departureDate+"T00:00:00.000Z", //add time for backend,
+                    bookingStartTime: this.bookingTime?.arrivalDate + "T00:00:00.000Z", //add time for backend,
+                    bookingEndTime: this.bookingTime?.departureDate + "T00:00:00.000Z", //add time for backend,
                     breakfast: this.reservation?.breakfast
                 });
-                
                 this.response = response.status;
-
             } catch (error) {
                 console.error('Error checking availability:', error);
                 this.response = null;

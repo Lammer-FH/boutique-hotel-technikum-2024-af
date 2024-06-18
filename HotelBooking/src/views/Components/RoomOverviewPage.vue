@@ -93,7 +93,7 @@ export default {
         checkAvailability() {
             const roomStore = useRoomStore();
             roomStore.setCurrentRoom(this.selectedRoomId as number);
-            this.$router.push({ name: 'RoomAvailabilityCheck', params: { roomId: this.selectedRoomId } });
+            this.$router.push({ name: 'RoomAvailabilityCheck' });
         },
     },
 };

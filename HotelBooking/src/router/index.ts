@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
     component: RoomOverviewPage
   },
   {
-    path: '/room-availability-check/:roomId',
+    path: '/room-availability-check/',
     name: 'RoomAvailabilityCheck',
     component: RoomAvailabilityCheckPage
   },

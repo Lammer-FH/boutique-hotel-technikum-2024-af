@@ -34,8 +34,8 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItem, IonLabel, IonInput, alertController } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
-import { useRoute } from 'vue-router';
 import { useBookingStore } from '../Stores/BookingStore'
+import { useRoomStore } from '../Stores/RoomStore';
 
 export default defineComponent({
     name: 'RoomAvailabilityCheckPage',
@@ -58,10 +58,6 @@ export default defineComponent({
             roomId: null as number | null,
         };
     },
-    created() {
-        const route = useRoute();
-        this.roomId = Number(route.params.roomId);
-    },
     setup() {
         return {
             arrowBackOutline,
@@ -72,57 +68,48 @@ export default defineComponent({
             this.$router.back();
         },
         async checkAvailability() {
-            if(!this.checkDateOrder())
-            {
+            if (!this.checkDateOrder()) {
                 return;
             }
-
             const bookingStore = useBookingStore();
-            await bookingStore.checkAvailability(this.roomId as number, this.arrivalDate, this.departureDate);
-
-            if(bookingStore.response === 200)
-            {
-                if(bookingStore.roomAvailability?.roomIsAvailable === true)
-                {
-                    this.$router.push({ name: 'BookingReservation', params: { roomId: this.roomId } });
+            const roomStore = useRoomStore();
+            await bookingStore.checkAvailability(roomStore.currentRoom?.id as number, this.arrivalDate, this.departureDate);
+            if (bookingStore.response === 200) {
+                if (bookingStore.roomAvailability?.roomIsAvailable === true) {
+                    this.$router.push({ name: 'BookingReservation' });
                 }
-                else
-                {
-                    this.errorAlert("Room not available", "The room is already booked until "+this.reformatDate(bookingStore.roomAvailability?.nextTimeAvailable as string)+" . Please adjust your timeframe.");
+                else {
+                    this.errorAlert("Room not available", "The room is already booked until " + this.reformatDate(bookingStore.roomAvailability?.nextTimeAvailable as string) + " . Please adjust your timeframe.");
                 }
             }
-            else
-            {
+            else {
                 this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com.");
             }
         },
         async errorAlert(header: string, message: string) {
             const alert = await alertController.create({
-            header: header,
-            message: message,
-            buttons: ['OK'],
+                header: header,
+                message: message,
+                buttons: ['OK'],
             });
 
             await alert.present();
         },
         checkDateOrder() {
-            if(new Date(this.arrivalDate).getTime() > new Date(this.departureDate).getTime())
-            {
+            if (new Date(this.arrivalDate).getTime() > new Date(this.departureDate).getTime()) {
                 this.errorAlert("Date error", "The deperature can not occur before the arrival. Please correct your input.");
                 return false;
             }
-            else if(new Date(this.arrivalDate).getTime() == new Date(this.departureDate).getTime())
-            {
+            else if (new Date(this.arrivalDate).getTime() == new Date(this.departureDate).getTime()) {
                 this.errorAlert("Date error", "The deperature can not be on the same day as the arrival. Please correct your input.");
                 return false;
             }
-            else
-            {
+            else {
                 return true
             }
         },
         reformatDate(date: string) {
-            return date.substring(8,10)+"."+date.substring(5,7)+"."+date.substring(0,4)
+            return date.substring(8, 10) + "." + date.substring(5, 7) + "." + date.substring(0, 4)
         }
     },
 });
