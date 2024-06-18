@@ -116,6 +116,8 @@ export default {
             await this.bookingStore.submitReservation();
             if (this.bookingStore.response === 201) {
                 this.$router.push({ name: 'BookingReservationConfirmation' });
+            } else if (this.bookingStore.response === 400) {
+                this.errorAlert("Room Already Booked", "The selected room is already booked. Please choose a different room or timeframe.");
             } else {
                 this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us at info@luxorahotel.com");
             }
