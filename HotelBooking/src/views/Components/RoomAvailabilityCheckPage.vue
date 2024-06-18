@@ -34,8 +34,8 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItem, IonLabel, IonInput, alertController } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
-import { useRoute } from 'vue-router';
 import { useBookingStore } from '../Stores/BookingStore'
+import { useRoomStore } from '../Stores/RoomStore';
 
 export default defineComponent({
     name: 'RoomAvailabilityCheckPage',
@@ -58,10 +58,6 @@ export default defineComponent({
             roomId: null as number | null,
         };
     },
-    created() {
-        const route = useRoute();
-        this.roomId = Number(route.params.roomId);
-    },
     setup() {
         return {
             arrowBackOutline,
@@ -75,10 +71,9 @@ export default defineComponent({
             if (!this.checkDateOrder()) {
                 return;
             }
-
             const bookingStore = useBookingStore();
-            await bookingStore.checkAvailability(this.roomId as number, this.arrivalDate, this.departureDate);
-
+            const roomStore = useRoomStore();
+            await bookingStore.checkAvailability(roomStore.currentRoom?.id as number, this.arrivalDate, this.departureDate);
             if (bookingStore.response === 200) {
                 if (bookingStore.roomAvailability?.roomIsAvailable === true) {
                     this.$router.push({ name: 'BookingReservation' });
