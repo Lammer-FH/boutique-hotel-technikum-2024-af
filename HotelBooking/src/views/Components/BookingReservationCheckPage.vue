@@ -10,54 +10,19 @@
         </IonHeader>
         <IonContent class="ion-padding">
             <div class="form-container">
-                <h1 class="page-title">Check Reservation data?</h1>
-                <form @submit.prevent="confirmReservation" class="reservation-form">
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Name</IonLabel>
-                        <IonInput type="text" v-model="name" required disabled></IonInput>
-                    </IonItem>
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Surname</IonLabel>
-                        <IonInput type="text" v-model="surname" required disabled></IonInput>
-                    </IonItem>
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Email</IonLabel>
-                        <IonInput type="email" v-model="email" required disabled></IonInput>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel>Breakfast</IonLabel>
-                        <IonToggle v-model="breakfast" disabled></IonToggle>
-                        <IonLabel>{{ breakfastStatus }}</IonLabel>
-                    </IonItem>
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Room</IonLabel>
-                        <IonInput type="text" v-model="roomTitle" required disabled></IonInput>
-                    </IonItem>
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Arrival Date</IonLabel>
-                        <IonInput type="date" v-model="arrivalDate" required disabled></IonInput>
-                    </IonItem>
-                    <IonItem class="form-item">
-                        <IonLabel position="floating">Departure Date</IonLabel>
-                        <IonInput type="date" v-model="departureDate" required disabled></IonInput>
-                    </IonItem>
-                    <div class="reservation-button-container">
-                        <ion-button type="submit" color="mygreen" class="reservation-button">Confirm reservation</ion-button>
-                    </div>
-                </form>
+                <h1 class="page-title">Check Reservation data</h1>
+                <ReservationForm />
             </div>
         </IonContent>
     </ion-page>
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItem, IonLabel, IonInput, alertController, IonToggle } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
-import { defineComponent } from 'vue';
-import { useBookingStore } from '../Stores/BookingStore'
-import { useRoomStore } from '../Stores/RoomStore'
+import ReservationForm from '../Models/ReservationFormModel.vue';
 
-export default defineComponent({
+export default {
     name: 'BookingReservationCheckPage',
     components: {
         IonPage,
@@ -67,46 +32,7 @@ export default defineComponent({
         IonContent,
         IonButton,
         IonIcon,
-        IonItem,
-        IonLabel,
-        IonInput,
-        IonToggle,
-    },
-    data() {
-        return {
-            bookingStore: null as any,
-            roomStore: null as any
-        };
-    },
-    created() {
-        this.bookingStore = useBookingStore();
-        this.roomStore = useRoomStore();
-    },
-    computed: {
-        name() {
-            return this.bookingStore.reservation?.name;
-        },
-        surname() {
-            return this.bookingStore.reservation?.surname;
-        },
-        email() {
-            return this.bookingStore.reservation?.email;
-        },
-        breakfast() {
-            return this.bookingStore.reservation?.breakfast;
-        },
-        breakfastStatus() {
-            return this.breakfast === true ? "Yes" : "No";
-        },
-        roomTitle() {
-            return this.roomStore.currentRoom?.title;
-        },
-        arrivalDate() {
-            return this.bookingStore.bookingTime?.arrivalDate;
-        },
-        departureDate() {
-            return this.bookingStore.bookingTime?.departureDate;
-        },
+        ReservationForm,
     },
     setup() {
         return {
@@ -117,31 +43,8 @@ export default defineComponent({
         navigateBack() {
             this.$router.back();
         },
-        async confirmReservation() {
-
-
-            await this.bookingStore.submitReservation();
-
-            if(this.bookingStore.response === 201)
-            {
-                this.$router.push({ name: 'BookingReservationConfirmation' });
-            }
-            else
-            {
-                this.errorAlert("Unknown error", "The request could not be completed. Please try again later. If the error persists, please contact us under info@luxorahotel.com");
-            }
-        },
-        async errorAlert(header: string, message: string) {
-            const alert = await alertController.create({
-            header: header,
-            message: message,
-            buttons: ['OK'],
-            });
-
-            await alert.present();
-        },
     },
-});
+};
 </script>
 
 <style scoped>
@@ -224,7 +127,6 @@ ion-button {
 }
 
 ion-toggle {
-  zoom: 1.2;
+    zoom: 1.2;
 }
-
 </style>
